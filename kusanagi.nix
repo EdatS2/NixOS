@@ -2,9 +2,8 @@
 let
 	menu = "wofi --show run";
 	terminal  = "alacritty";
-	lock = "swaylock -i /etc/nixos/blackhole.jpg";
 	lock_script = pkgs.pkgs.writeShellScriptBin "lock_screen" ''
-		${pkgs.swaylock}/bin/swaylock \
+		${pkgs.swaylock-effects}/bin/swaylock-effects \
 			--screenshots \
 			--clock \
 			--indicator \
