@@ -3,7 +3,8 @@ let
 	menu = "wofi --show run";
 	terminal  = "alacritty";
 	lock_script = pkgs.pkgs.writeShellScriptBin "lock_screen" ''
-		${pkgs.swaylock-effects}/bin/swaylock-effects \
+		${pkgs.brightnessctl}/bin/brightnessctl s 20% &
+		${pkgs.swaylock-effects}/bin/swaylock \
 			--screenshots \
 			--clock \
 			--indicator \
@@ -17,8 +18,7 @@ let
 			--inside-color 00000088 \
 			--separator-color 00000000 \
 			--grace 2 \
-			--fade-in 0.2 &
-		${pkgs.brightnessctl}/bin/brightnessctl -set 20% &
+			--fade-in 0.2
 	'';
 	startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
 	${pkgs.swww}/bin/swww init &
