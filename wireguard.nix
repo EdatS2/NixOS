@@ -10,7 +10,6 @@
 	networking.firewall.checkReversePath = false;
 	networking.wg-quick.interfaces = {
 	Sibelius = {
-	
 		address = [ "10.7.0.2/24" ];
 		listenPort = 51820;
 		privateKeyFile = "/etc/nixos/keys/sib_key";
@@ -23,5 +22,18 @@
 			persistentKeepalive = 25;
 		}];
 	};
+	Emmeloord = {
+		address = [ "10.7.0.5/24" "fddd:2c4:2c4::5/64" ];
+		listenPort = 51820;
+		privateKeyFile = "/etc/nixos/keys/emm_key";
+		dns = [ "192.168.2.125" ];
+		peers = [{
+			publicKey = "DBvdtcit6+8wWn5J5sx4cmTI07IMni4gADrrzFFpnEg=";
+			presharedKeyFile = "/etc/nixos/keys/preemm_key";
+			allowedIPs = [ "0.0.0.0/0" "::/0" ];
+			endpoint = "vpn2.salverdaserver.nl:51820";
+			persistentKeepalive = 25;
+		}];
+		};
 	};
 }

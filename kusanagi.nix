@@ -39,6 +39,7 @@ in
 		alacritty
 		wofi
 		swww
+		bitwarden
 		dunst
 		brightnessctl
 		pamixer
@@ -109,7 +110,7 @@ in
 			"$mod, 7, workspace, 7"
 			"$mod, 8, workspace, 8"
 			"$mod, 9, workspace, 9"
-			"$mod, 0, workspace, 0"
+			"$mod, 0, workspace, 10"
 			"ALTSHIFT, 1, movetoworkspacesilent,1"
 			"ALTSHIFT, 2, movetoworkspacesilent,2"
 			"ALTSHIFT, 3, movetoworkspacesilent,3"
@@ -119,8 +120,10 @@ in
 			"ALTSHIFT, 7, movetoworkspacesilent,7"
 			"ALTSHIFT, 8, movetoworkspacesilent,8"
 			"ALTSHIFT, 9, movetoworkspacesilent,9"
-			"ALTSHIFT, 0, movetoworkspacesilent,0"
-			"ALTSHIFT, L, exec, ${lock_script}"
+			"ALTSHIFT, 0, movetoworkspacesilent,10"
+			"ALTSHIFT, c, exec, ${lock_script}/bin/lock_screen"
+			"ALTSHIFT, s,exec, ${lock_script}/bin/lock_screen & systemctl suspend"
+			"ALTSHIFT, p,exec, shutdown now"
 		];
 		binde = [
 			",XF86MonBrightnessUp, exec, brightnessctl s 5%+"
@@ -131,7 +134,6 @@ in
 		misc = {
 			disable_hyprland_logo = true;
 			};
-		
 		"env" = "WLR_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0";
 	  };
 	};
