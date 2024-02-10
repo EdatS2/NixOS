@@ -26,7 +26,7 @@
 		address = [ "10.7.0.5/24" "fddd:2c4:2c4::5/64" ];
 		listenPort = 51820;
 		privateKeyFile = "/etc/nixos/keys/emm_key";
-		dns = [ "192.168.2.125" ];
+		dns = [ "192.168.2.254" ];
 		peers = [{
 			publicKey = "DBvdtcit6+8wWn5J5sx4cmTI07IMni4gADrrzFFpnEg=";
 			presharedKeyFile = "/etc/nixos/keys/preemm_key";
