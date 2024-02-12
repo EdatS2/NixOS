@@ -50,6 +50,9 @@ in
 		btop
 		whatsapp-for-linux
 		discord
+		moonlight-qt
+		psst
+		playerctl
 	];
 	wayland.windowManager.hyprland = {
 	  enable = true;
