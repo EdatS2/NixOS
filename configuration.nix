@@ -1,4 +1,4 @@
-# Edit this configuration file to define what should be installed on
+#sEdit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
@@ -47,7 +47,15 @@
 	"/var/log".options = [ "compress=zstd" ];
 };
 
-
+  #file explorer
+  programs.thunar.enable = true;
+  programs.xfconf.enable = true;
+  programs.thunar.plugins = with pkgs.xfce; [
+    thunar-archive-plugin
+    thunar-volman
+  ];
+  services.gvfs.enable = true;
+  services.tumbler.enable = true;
 	
   networking.hostName = "ishikawa"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -82,6 +90,7 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
+  services.hardware.bolt.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -120,6 +129,10 @@ security.pam.services.swaylock = {
      wl-clipboard
      wlroots
      clang
+     ffmpegthumbnailer
+     f3d
+     okular  #to view pdf
+     feh     #to view images
   ];
 
   # install hyprland

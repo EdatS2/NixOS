@@ -53,6 +53,7 @@ in
 		moonlight-qt
 		psst
 		playerctl
+		teams-for-linux
 	];
 	wayland.windowManager.hyprland = {
 	  enable = true;
