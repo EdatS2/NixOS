@@ -33,7 +33,21 @@ in
 	home.username = "kusanagi";
 	home.homeDirectory = "/home/kusanagi";
 	programs.home-manager.enable = true;
+	programs = {
+		direnv = {
+			enable = true;
+			enableBashIntegration = true;
+			nix-direnv.enable = true;
+			};
+		bash = {
+			enable = true;
+			bashrcExtra = ''
+				eval "$(direnv hook bash)"
+			'';
+			};
+		};
 	home.packages = with pkgs; [
+		unzip
 		thunderbird
 		neovim
 		alacritty
@@ -59,6 +73,7 @@ in
 	  enable = true;
 	  package = pkgs.hyprland;
 	  systemd.enable = true;
+	  xwayland.enable = true;
 	  settings = {
 		exec-once = ''${startupScript}/bin/start'';
 		"$mod" = "ALT";

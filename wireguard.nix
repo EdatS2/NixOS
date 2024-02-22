@@ -10,6 +10,7 @@
 	networking.firewall.checkReversePath = false;
 	networking.wg-quick.interfaces = {
 	Sibelius = {
+		autostart = false;
 		address = [ "10.7.0.2/24" ];
 		listenPort = 51820;
 		privateKeyFile = "/etc/nixos/keys/sib_key";
@@ -23,6 +24,7 @@
 		}];
 	};
 	Emmeloord = {
+		autostart = false;
 		address = [ "10.7.0.5/24" "fddd:2c4:2c4::5/64" ];
 		listenPort = 51820;
 		privateKeyFile = "/etc/nixos/keys/emm_key";

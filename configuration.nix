@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./nvidia.nix
     ];
   # enable flakes
   nix = {
@@ -60,7 +61,14 @@
   networking.hostName = "ishikawa"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager = {
+    enable = true;  # Easiest to use and most distros use this by default.
+    enableStrongSwan = true;
+    };
+  security.pki.certificateFiles = [
+    "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+  ];
+  
   programs.nm-applet.enable = true;
 
   # Set your time zone.
@@ -106,6 +114,10 @@
      ];
   };
 
+  environment.sessionVariables = rec {
+    MOZ_ENABLE_WAYLAND= "1 thunderbird";
+  };
+
 security.pam.services.swaylock = {
 	text = ''
 		auth include login
@@ -133,6 +145,7 @@ security.pam.services.swaylock = {
      f3d
      okular  #to view pdf
      feh     #to view images
+     strongswanNM
   ];
 
   # install hyprland
