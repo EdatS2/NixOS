@@ -151,7 +151,8 @@ in
 		misc = {
 			disable_hyprland_logo = true;
 			};
-		"env" = "WLR_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0";
+		#"env" = "WLR_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0";
+		"env" = "WLR_NO_HARDWARE_CURSORS,1";
 	  };
 	};
 	home.stateVersion = "23.11";

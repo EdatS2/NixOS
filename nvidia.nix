@@ -3,7 +3,7 @@
 {
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["i915" "nvidia"];
+  services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
 
