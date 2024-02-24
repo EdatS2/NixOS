@@ -6,14 +6,16 @@
 	  };
 	  home-manager.url = "github:nix-community/home-manager";
 	  home-manager.inputs.nixpkgs.follows = "nixpkgs";
+	  hyprland.url = "github:hyprwm/Hyprland";
 	};
 
-	outputs = inputs@{ self, nixpkgs, home-manager}: {
+	outputs = inputs@{ self, nixpkgs, home-manager, hyprland}: {
 	  nixosConfigurations = {
 	    ishikawa = nixpkgs.lib.nixosSystem {
 		system = "x86_64-linux";
 		modules = [
 		  ./configuration.nix
+		  ./nvidia.nix #curently not in use
 		  ./greetd.nix
 		  ./theme.nix
 		  ./wireguard.nix

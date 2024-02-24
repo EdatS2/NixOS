@@ -8,7 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./nvidia.nix
     ];
   # enable flakes
   nix = {
@@ -151,8 +150,11 @@ security.pam.services.swaylock = {
   # install hyprland
   hardware.opengl.enable = true;
   hardware.opengl.driSupport = true;
-  hardware.opengl.extraPackages = [
-	pkgs.intel-media-driver
+  hardware.opengl.extraPackages = with pkgs; [
+	intel-media-driver
+	intel-vaapi-driver
+	vaapiVdpau
+	libvdpau-va-gl
 	]; 
 
   fonts.packages  = with pkgs; [

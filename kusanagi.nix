@@ -1,4 +1,4 @@
-{ pkgs, ...} : 
+{pkgs, ...} : 
 let
 	menu = "wofi --show run";
 	terminal  = "alacritty";
@@ -71,9 +71,7 @@ in
 	];
 	wayland.windowManager.hyprland = {
 	  enable = true;
-	  package = pkgs.hyprland;
 	  systemd.enable = true;
-	  xwayland.enable = true;
 	  settings = {
 		exec-once = ''${startupScript}/bin/start'';
 		"$mod" = "ALT";

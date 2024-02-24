@@ -1,15 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  # Enable OpenGL
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
 
   # Load nvidia driver for Xorg and Wayland
-  #services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = ["i915" "nvidia"];
 
   hardware.nvidia = {
 
@@ -17,7 +11,7 @@
     modesetting.enable = true;
 
     # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    powerManagement.enable = false;
+    powerManagement.enable = true;
     # Fine-grained power management. Turns off GPU when not in use.
     # Experimental and only works on modern Nvidia GPUs (Turing or newer).
     powerManagement.finegrained = false;
@@ -40,6 +34,7 @@
   };
 
   hardware.nvidia.prime = {
+		reverseSync.enable = true;
 		# Make sure to use the correct Bus ID values for your system!
 		intelBusId = "PCI:0:2:0";
 		nvidiaBusId = "PCI:01:0:0";
