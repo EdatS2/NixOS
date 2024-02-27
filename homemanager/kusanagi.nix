@@ -30,6 +30,9 @@ let
 	'';
 in
 {
+	imports = [
+		./apps
+	];
 	home.username = "kusanagi";
 	home.homeDirectory = "/home/kusanagi";
 	programs.home-manager.enable = true;
