@@ -14,17 +14,13 @@
 	    ishikawa = nixpkgs.lib.nixosSystem {
 		system = "x86_64-linux";
 		modules = [
-		  ./configuration.nix
-		  ./nvidia.nix #curently not in use
-		  ./greetd.nix
-		  ./theme.nix
-		  ./wireguard.nix
+		  ./laptop/configuration.nix
 		  ./smb/smb.nix
 		  home-manager.nixosModules.home-manager
 		  {
 			home-manager.useGlobalPkgs = true;
 			home-manager.useUserPackages = true;
-			home-manager.users.kusanagi = import ./kusanagi.nix;
+			home-manager.users.kusanagi = import ./homemanager/kusanagi.nix;
 		  }
 		];
 	    };

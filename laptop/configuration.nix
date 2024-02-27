@@ -8,6 +8,10 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./greetd.nix
+      ./nvidia.nix
+      ./theme.nix
+      ./wireguard.nix
     ];
   # enable flakes
   nix = {
