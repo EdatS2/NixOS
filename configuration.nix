@@ -1,4 +1,4 @@
-#sEdit this configuration file to define what should be installed on
+#sdqEdit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
@@ -62,11 +62,47 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager = {
     enable = true;  # Easiest to use and most distros use this by default.
-    enableStrongSwan = true;
     };
   security.pki.certificateFiles = [
     "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
   ];
+  services.strongswan-swanctl = {
+    enable = true;
+    swanctl = {
+      connections.TUE = {
+	version = 2;
+	remote_addrs =[ "vpn-student.tue.nl" ];
+	encap = true;
+	vips  = ["0.0.0.0" "::"];
+	local_port = 500;
+	remote."remote-1" = {
+	  auth = "pubkey";
+	  #cacerts = ["/etc/ssl/certs/ca-bundle.crt"];
+	};
+	local."local-1" = {
+	  auth = "eap-mschapv2";
+	  eap_id="t.salverda@student.tue.nl";
+	};
+	children."TUE_connection" = {
+	  remote_ts = ["0.0.0.0/0" "::/0"];
+	};
+      };
+    };
+    strongswan.extraConfig = ''
+	charon {
+	  plugins {
+	    curl {
+	      redir = -1
+	      }
+	    ipseckey {
+	      enable = 1
+	      }
+	    dnscert {
+	      }
+	    }
+	  }
+    '';
+  };
   
   programs.nm-applet.enable = true;
 
@@ -144,7 +180,10 @@ security.pam.services.swaylock = {
      f3d
      okular  #to view pdf
      feh     #to view images
-     strongswanNM
+     strongswan
+     gnutls
+     curl
+     cifs-utils #smb mount
   ];
 
   # install hyprland

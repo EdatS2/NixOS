@@ -19,6 +19,7 @@
 		  ./greetd.nix
 		  ./theme.nix
 		  ./wireguard.nix
+		  ./smb/smb.nix
 		  home-manager.nixosModules.home-manager
 		  {
 			home-manager.useGlobalPkgs = true;
