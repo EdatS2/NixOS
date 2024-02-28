@@ -6,6 +6,7 @@
     pkgs.cargo
     pkgs.llm-ls
     pkgs.texliveFull
+    pkgs.libclang
   ];
 
   programs.neovim = {

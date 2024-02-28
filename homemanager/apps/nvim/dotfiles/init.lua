@@ -176,6 +176,12 @@ require('lazy').setup({
       },
     },
   },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  },
 
   {
     -- Add indentation guides even on blank lines
@@ -535,14 +541,15 @@ require('mason-lspconfig').setup()
 --  define the property 'filetypes' to the map in question.
 local servers = {
   clangd = {
+    mason = false,
     cmd = { "clangd", "--background-index", "--clang-tidy"},},
   ltex = {},
-  matlab_ls = {
-indexWorkspace = true,
-installPath = "/home/ishikawa/matlab",
-matlabConnectionTiming = "onStart",
-telemetry = false
-  },
+ --matlab_ls = {
+ -- indexWorkspace = true,
+--installPath = "/home/ishikawa/matlab",
+--matlabConnectionTiming = "onStart",
+--telemetry = false
+--  },
   cmake = {}, 
 -- gopls = {},
   -- pyright = {},

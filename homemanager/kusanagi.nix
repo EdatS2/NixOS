@@ -52,7 +52,6 @@ in
 	home.packages = with pkgs; [
 		unzip
 		thunderbird
-		neovim
 		alacritty
 		wofi
 		swww
