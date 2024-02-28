@@ -71,6 +71,7 @@ in
 		psst
 		playerctl
 		teams-for-linux
+		hunspell
 	];
 	wayland.windowManager.hyprland = {
 	  enable = true;

@@ -7,6 +7,7 @@
     pkgs.llm-ls
     pkgs.texliveFull
     pkgs.libclang
+    pkgs.jdk
   ];
 
   programs.neovim = {
