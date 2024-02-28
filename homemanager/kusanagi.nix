@@ -33,6 +33,7 @@ in
 	imports = [
 		./apps
 	];
+	xdg.enable = true;
 	home.username = "kusanagi";
 	home.homeDirectory = "/home/kusanagi";
 	programs.home-manager.enable = true;
