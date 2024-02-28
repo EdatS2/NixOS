@@ -37,4 +37,8 @@ On top of the luks container a [BTRFS](https://wiki.archlinux.org/title/btrfs) f
 After reading this [blog](https://writerit.nl/software/nixos/my-personal-journey-into-nixos/) the decision was made to also use flakes and homemanager. The setup of these two does not differ from the guides outlines on the NixOS wiki. But they are henceforth used to configure the rest of the system.
 
 ### Wayland and Nixos
+Most of the Nix wiki seems to point towards the usage of x11 however aim of this configuration is to use wayland, as such the Nix wiki is not that helpfull. If not in possession of a 2 gpu laptop, which requires either nvidia prime or an environmental variable to point wayland to the right gpu. The setup is easy, setup hyprland with homemanager as outlined on the hyprland wiki and off to the races. The setup process with a laptop with a dgpu is a bit more tedious
+1. Use the nouveau driver and the environmental variable `ENV_WLR_DEVICES`
+2. Install nvidea drivers and setup prime
+
 
