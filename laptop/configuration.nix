@@ -60,6 +60,11 @@
   ];
   services.gvfs.enable = true;
   services.tumbler.enable = true;
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    # Add any missing dynamic libraries for unpackaged programs
+    # here, NOT in environment.systemPackages
+  ];
 	
   networking.hostName = "ishikawa"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -126,8 +131,9 @@
   # };
 
   # set usefull alias
-  #programs.bash.shellAliases = {
-  #};
+  programs.bash.shellAliases = {
+    rebuild = "sudo nixos-rebuild --flake .#/etc/nixos/ishikawa switch"; 
+  };
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
@@ -138,6 +144,7 @@
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
   services.hardware.bolt.enable = true;
+  hardware.xpadneo.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;

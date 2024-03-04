@@ -72,6 +72,8 @@ in
 		playerctl
 		teams-for-linux
 		hunspell
+		onedrive
+		libreoffice
 	];
 	wayland.windowManager.hyprland = {
 	  enable = true;
@@ -145,6 +147,9 @@ in
 			"ALTSHIFT, c, exec, ${lock_script}/bin/lock_screen"
 			"ALTSHIFT, s,exec, ${lock_script}/bin/lock_screen & systemctl suspend"
 			"ALTSHIFT, p,exec, shutdown now"
+			"$mod, s, togglegroup"
+			"$mod, n, changegroupactive, f"
+			"$mod, p, changegroupactive, b"
 		];
 		binde = [
 			",XF86MonBrightnessUp, exec, brightnessctl s 5%+"

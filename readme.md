@@ -15,7 +15,7 @@ BTRFS is a CoW file system that offers snapshot capabilities that ext4 does not,
 The prior setup used disk encryption based on `dm-crypt` with `lvm` on top, the boot partition was outside the encrypted partition. The NIX configuration will aim to address this. 
 
 # NIX
-This repo details my holds my NixOS configuration, some details
+This repo details and holds my NixOS configuration, some details
 - Hyprland
 - Grub
 - luks2 encrypted
@@ -39,6 +39,10 @@ After reading this [blog](https://writerit.nl/software/nixos/my-personal-journey
 ### Wayland and Nixos
 Most of the Nix wiki seems to point towards the usage of x11 however aim of this configuration is to use wayland, as such the Nix wiki is not that helpfull. If not in possession of a 2 gpu laptop, which requires either nvidia prime or an environmental variable to point wayland to the right gpu. The setup is easy, setup hyprland with homemanager as outlined on the hyprland wiki and off to the races. The setup process with a laptop with a dgpu is a bit more tedious
 1. Use the nouveau driver and the environmental variable `ENV_WLR_DEVICES`
-2. Install nvidea drivers and setup prime
+2. Install NVIDIA drivers and setup prime
+
+## Future goals
+A few wants are not yet realized in this configuration, automatic btrfs snapshot backups to a remote target are not yet implemented. 
+Furthermore, the system does not yet utilize secure boot, because the secure boot project for NixOS [Lanzaboote](https://github.com/nix-community/lanzaboote) is focussed on systemd boot, not grub. Following the playbook as set out on the [arch wiki](https://wiki.archlinux.org/title/GRUB#Secure_Boot_support) should be possible, and it could possibly be made into a nix package, however I have not tried this yet. 
 
 
