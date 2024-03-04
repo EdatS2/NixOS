@@ -60,11 +60,6 @@
   ];
   services.gvfs.enable = true;
   services.tumbler.enable = true;
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    # Add any missing dynamic libraries for unpackaged programs
-    # here, NOT in environment.systemPackages
-  ];
 	
   networking.hostName = "ishikawa"; # Define your hostname.
   # Pick only one of the below networking options.
