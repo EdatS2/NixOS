@@ -59,6 +59,7 @@
     thunar-volman
   ];
   services.gvfs.enable = true;
+  services.tailscale.enable = true;
   services.tumbler.enable = true;
 	
   networking.hostName = "ishikawa"; # Define your hostname.
@@ -127,7 +128,8 @@
 
   # set usefull alias
   programs.bash.shellAliases = {
-    rebuild = "sudo nixos-rebuild --flake .#/etc/nixos/ishikawa switch"; 
+    rebuild = "sudo nixos-rebuild --flake /etc/nixos#ishikawa switch"; 
+    edit = "cd /etc/nixos; nvim .";
   };
   # Enable CUPS to print documents.
   # services.printing.enable = true;

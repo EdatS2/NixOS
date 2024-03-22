@@ -25,7 +25,7 @@
 	};
 	Emmeloord = {
 		autostart = false;
-		address = [ "10.7.0.5/24" "fddd:2c4:2c4::5/64" ];
+		address = [ "10.7.0.3/24" "fddd:2c4:2c4::3/64" ];
 		listenPort = 51820;
 		privateKeyFile = "/etc/nixos/keys/emm_key";
 		dns = [ "192.168.2.254" ];
