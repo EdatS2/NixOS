@@ -3,11 +3,16 @@
 {
   home.packages = [
     pkgs.nixpkgs-fmt
+    pkgs.nixd
     pkgs.cargo
     pkgs.llm-ls
     pkgs.texliveFull
     pkgs.libclang
     pkgs.jdk
+    pkgs.python3
+    pkgs.nodePackages.bash-language-server
+    pkgs.python311Packages.jedi-language-server
+    pkgs.ltex-ls
   ];
 
   programs.neovim = {
