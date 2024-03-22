@@ -1,0 +1,3 @@
+[submodule "homemanager/apps/nvim/dotfiles"]
+	path = homemanager/apps/nvim/dotfiles
+	url = git@github.com:EdatS2/NVIM-config.git

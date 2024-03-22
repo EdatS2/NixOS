@@ -4,5 +4,5 @@
   home.packages = [
     pkgs.waybar
     ];
-  xdg.configFile.waybar.source = ./dotfiles
+  xdg.configFile.waybar.source = ./dotfiles;
 }

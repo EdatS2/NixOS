@@ -15,5 +15,9 @@
       resurrect
       continuum
     ];
+    extraConfig = ''
+      source-file ./keybinds.conf
+    '';
   };
+  home.file.".config/tmux/keybinds.conf".source = ./dotfiles/tmux.conf;
 }
