@@ -1,0 +1,25 @@
+{ config, pkgs, inputs, ... }:
+{
+programs.zsh = {
+  enable = true;
+  enableCompletion = true;
+  enableAutosuggestions = true;
+  syntaxHighlighting.enable = true;
+
+  shellAliases = {
+    ll = "ls -l";
+    rebuild = "sudo nixos-rebuild --flake /etc/nixos?submodules=1#ishikawa switch"; 
+    edit = "cd /etc/nixos; nvim .";
+  };
+  history.size = 10000;
+  history.path = "${config.xdg.dataHome}/zsh/history";
+  oh-my-zsh = {
+    enable = true;
+    plugins = [ "git" 
+                "thefuck"
+                "direnv"];
+    theme = "robbyrussell";
+  };
+};
+
+}

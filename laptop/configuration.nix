@@ -53,6 +53,7 @@
 
   #file explorer
   programs.thunar.enable = true;
+  programs.zsh.enable = true;
   programs.xfconf.enable = true;
   programs.thunar.plugins = with pkgs.xfce; [
     thunar-archive-plugin
@@ -128,7 +129,7 @@
 
   # set usefull alias
   programs.bash.shellAliases = {
-    rebuild = "sudo nixos-rebuild --flake /etc/nixos#ishikawa switch"; 
+    rebuild = "sudo nixos-rebuild --flake /etc/nixos?submodules=1#ishikawa switch"; 
     edit = "cd /etc/nixos; nvim .";
   };
   # Enable CUPS to print documents.
@@ -150,6 +151,7 @@
   users.users.kusanagi = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    shell = pkgs.zsh;
     packages = with pkgs; [
       firefox
       tree
