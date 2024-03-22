@@ -1,5 +1,8 @@
 { config, pkgs, inputs, ... }:
 {
+    home.packages = with pkgs; [
+        thefuck
+    ];
 programs.zsh = {
   enable = true;
   enableCompletion = true;
@@ -8,7 +11,7 @@ programs.zsh = {
 
   shellAliases = {
     ll = "ls -l";
-    rebuild = "sudo nixos-rebuild --flake /etc/nixos?submodules=1#ishikawa switch"; 
+    rebuild = ''sudo nixos-rebuild --flake "/etc/nixos?submodules=1#ishikawa" switch''; 
     edit = "cd /etc/nixos; nvim .";
   };
   history.size = 10000;

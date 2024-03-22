@@ -17,6 +17,7 @@
 
   programs.neovim = {
     enable = true;
+    defaultEditor = true;
 
     # Enable other frameworks for plugins.
     withNodeJs = true;
