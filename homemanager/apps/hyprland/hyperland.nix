@@ -39,8 +39,9 @@ in
       exec-once = ${startupScript}/bin/start
       $lock = ${lock_script}/bin/lock_screen
       env = WLR_NO_HARDWARE_CURSORS,1
+      source = ./keybind.conf
       '';
 #"env" = "WLR_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0";
     };
-  xdg.configFile."hypr".source = ./dotfiles;
+  home.file.".config/hypr/keybind.conf".source = ./dotfiles/keybind.conf;
 }
