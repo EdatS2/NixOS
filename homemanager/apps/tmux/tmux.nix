@@ -16,7 +16,7 @@
       continuum
     ];
     extraConfig = ''
-      source-file ./keybinds.conf
+      source-file ~/.config/tmux/keybinds.conf
     '';
   };
   home.file.".config/tmux/keybinds.conf".source = ./dotfiles/tmux.conf;
