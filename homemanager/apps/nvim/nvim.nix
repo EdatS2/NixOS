@@ -7,12 +7,13 @@
     pkgs.cargo
     pkgs.llm-ls
     pkgs.texliveFull
-    pkgs.libclang
+    pkgs.clang-tools
     pkgs.jdk
     pkgs.python3
     pkgs.nodePackages.bash-language-server
     pkgs.python311Packages.jedi-language-server
     pkgs.ltex-ls
+    pkgs.ansible-language-server
   ];
 
   programs.neovim = {
