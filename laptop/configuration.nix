@@ -196,6 +196,7 @@ security.pam.services.swaylock = {
      gnutls
      curl
      cifs-utils #smb mount
+     powertop
   ];
 
   # install hyprland
