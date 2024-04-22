@@ -24,6 +24,8 @@ let
 	${pkgs.swww}/bin/swww init &
 	${pkgs.dunst}/bin/dunst &
 	${pkgs.waybar}/bin/waybar &
+    ${pkgs.thunderbird}/bin/thunderbird &
+    ${pkgs.whatsapp-for-linux}/bin/whatsapp-for-linux &
 	
 	sleep 1
  	${pkgs.swww}/bin/swww img ${./gits.jpg} &

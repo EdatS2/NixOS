@@ -14,6 +14,8 @@
     pkgs.python311Packages.jedi-language-server
     pkgs.ltex-ls
     pkgs.ansible-language-server
+    pkgs.lua-language-server
+    pkgs.texlab
   ];
 
   programs.neovim = {

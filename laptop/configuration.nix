@@ -51,14 +51,16 @@
 	"/var/log".options = [ "compress=zstd" ];
 };
 
+  # Garbage collection
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 60d";
+  };
+
   #file explorer
-  programs.thunar.enable = true;
   programs.zsh.enable = true;
   programs.xfconf.enable = true;
-  programs.thunar.plugins = with pkgs.xfce; [
-    thunar-archive-plugin
-    thunar-volman
-  ];
   services.gvfs.enable = true;
   services.tailscale.enable = true;
   services.tumbler.enable = true;

@@ -3,6 +3,13 @@
 	imports = [
 		./apps
 	];
+    nixpkgs = {
+        overlays = [ ];
+        config = {
+            allowUnfree = true;
+            allowUnfreePredicate = _: true;
+        };
+    };
 	xdg.enable = true;
 	home.username = "kusanagi";
 	home.homeDirectory = "/home/kusanagi";
@@ -44,6 +51,9 @@
 		hunspell
 		onedrive
 		libreoffice
+        pcmanfm
+        lxmenu-data
+        shared-mime-info
 	];
 	home.stateVersion = "23.11";
 }
