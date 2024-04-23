@@ -21,7 +21,8 @@
 	'';
   };
 
-
+  # use the latest hardened kernel
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
   # Use the systemd-boot EFI boot loader.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
