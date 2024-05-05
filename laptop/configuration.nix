@@ -35,6 +35,7 @@
 		"--modules=part_gpt luks2 cryptodisk gcry_rijndael gcry_sha256 gcry_sha512 btrfs true"
 		];
 };
+  boot.kernelParams = [ "pcie_aspm=force" "pcie_aspm.policy=powersave" ];
   boot.initrd.kernelModules = [ "usb_storage" ];
   boot.initrd.luks.devices = {
 	luksroot = {
@@ -43,6 +44,10 @@
 		keyFile = "/dev/disk/by-id/usb-_USB_DISK_2.0_0774180006BE-0:0";
 		};
 };
+  services.udev.packages = with pkgs; [
+    vial
+    via
+    ];
 
   fileSystems = {
 	"/".options = [ "compress=zstd" ];
@@ -65,18 +70,39 @@
   services.gvfs.enable = true;
   services.tailscale.enable = true;
   services.tumbler.enable = true;
-	
+  nixpkgs.overlays = [
+       (final: prev:
+       {
+           strongswanNM' = prev.strongswanNM.override {
+               enableNetworkManager=false;
+           };
+       })
+       (final: prev:
+       {
+       strongswan' = prev.strongswanNM'.overrideAttrs (old: {
+               configureFlags = (old.configureFlags or []) ++ [
+               "--enable-eap-peap"
+               "--enable-nm"
+               "--with-nm-ca-dir=${pkgs.cacert.unbundled}/etc/ssl/certs"
+               ];
+               buildInputs = (old.buildInputs or []) ++ [
+               pkgs.cacert.unbundled
+               ];
+               });
+       })
+  ];
+
   networking.hostName = "ishikawa"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager = {
     enable = true;  # Easiest to use and most distros use this by default.
+    plugins = [
+        pkgs.networkmanager_strongswan
+        ];
     };
-  security.pki.certificateFiles = [
-    "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
-  ];
   services.strongswan-swanctl = {
-    enable = true;
+    enable = false;
     swanctl = {
       connections.TUE = {
 	version = 2;
@@ -198,6 +224,8 @@ security.pam.services.swaylock = {
      curl
      cifs-utils #smb mount
      powertop
+     strongswanNM
+     cacert.unbundled #get unbundled cacerts for strongswan
   ];
 
   # install hyprland

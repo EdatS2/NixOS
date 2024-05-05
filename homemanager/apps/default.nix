@@ -6,5 +6,6 @@
 		./hyprland/hyperland.nix
 		./waybar/waybar.nix
         ./zsh/zsh.nix
+        ./alacritty/alacritty.nix
 		];
 		}

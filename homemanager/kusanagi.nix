@@ -4,7 +4,6 @@
 		./apps
 	];
     nixpkgs = {
-        overlays = [ ];
         config = {
             allowUnfree = true;
             allowUnfreePredicate = _: true;
@@ -30,7 +29,6 @@
 	home.packages = with pkgs; [
 		unzip
 		thunderbird
-		alacritty
 		wofi
 		swww
 		bitwarden
@@ -54,6 +52,9 @@
         pcmanfm
         lxmenu-data
         shared-mime-info
+        via #for configuring keyboard
+        sshfs #mounting remote filesystems
+        timeshift #for managing btrfs backups
 	];
     systemd.user.startServices = "sd-switch";
 	home.stateVersion = "23.11";
