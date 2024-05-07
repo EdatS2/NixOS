@@ -56,6 +56,20 @@
 	"/persist".options = [ "compress=zstd" ];
 	"/var/log".options = [ "compress=zstd" ];
 };
+ #services.btrbk = {
+ #   instances."Sibelius" = {
+ #       #onCalendar = "daily";
+ #       settings = {
+ #           ssh_identity = "/home/kusanagi/.ssh/id_ed25519";
+ #           ssh_user = "root";
+ #           stream_compress = "lz4";
+ #           volume."/" = {
+ #               target = "ssh://192.168.0.15/mnt/NixOS";
+ #               subvolume = "home";
+ #           };
+ #       };
+ #   };
+ #};
 
   # Garbage collection
   nix.gc = {
@@ -159,6 +173,7 @@
   # set usefull alias
   programs.bash.shellAliases = {
     rebuild = "sudo nixos-rebuild --flake /etc/nixos?submodules=1#ishikawa switch"; 
+    update  = "cd /etc/nixos; nix flake update --commit-lock-file";
     edit = "cd /etc/nixos; nvim .";
   };
   # Enable CUPS to print documents.

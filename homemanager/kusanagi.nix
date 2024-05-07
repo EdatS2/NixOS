@@ -54,7 +54,6 @@
         shared-mime-info
         via #for configuring keyboard
         sshfs #mounting remote filesystems
-        timeshift #for managing btrfs backups
 	];
     systemd.user.startServices = "sd-switch";
 	home.stateVersion = "23.11";

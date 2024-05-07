@@ -13,7 +13,7 @@ programs.zsh = {
     ll = "ls -l";
     rebuild = ''sudo nixos-rebuild --flake "/etc/nixos?submodules=1#ishikawa" switch''; 
     edit = "cd /etc/nixos; nvim .";
-    update = ''sudo nix flake --flake "/etc/nixos#ishikawa" --commit-lock-file update'';
+    update = ''cd /etc/nixos; nix flake update --commit-lock-file'';
   };
   history.size = 10000;
   history.path = "${config.xdg.dataHome}/zsh/history";
