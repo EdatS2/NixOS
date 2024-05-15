@@ -37,12 +37,17 @@
 };
   boot.kernelParams = [ "pcie_aspm=force" "pcie_aspm.policy=powersave" ];
   boot.initrd.kernelModules = [ "usb_storage" ];
-  boot.initrd.luks.devices = {
-	luksroot = {
+  boot.initrd = {
+    luks.devices.luksroot = {
 		device = "/dev/disk/by-uuid/8bca95bc-7ddc-41c7-9e2f-d72096a3b57f";
-		keyFileSize = 4096;
-		keyFile = "/dev/disk/by-id/usb-_USB_DISK_2.0_0774180006BE-0:0";
+		#keyFileSize = 4096;
+#		keyFile = "/dev/disk/by-id/usb-_USB_DISK_2.0_0774180006BE-0:0";
+        keyFile = "/keyfile.bin";
+        fallbackToPassword = true;
 		};
+    secrets = {
+        "keyfile.bin" ="/etc/nixos/keys/crypto_keyfile.bin";
+    };
 };
   services.udev.packages = with pkgs; [
     vial
