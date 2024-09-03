@@ -64,6 +64,15 @@ in
           package= pkgs.adwaita-icon-theme;
           name = "Adwaita";
       };
+      cursorTheme = {
+          package = pkgs.vanilla-dmz;
+          name = "Vanilla-DMZ";
+      };
   };
+  home.pointerCursor = {
+          package = pkgs.vanilla-dmz;
+          name = "Vanilla-DMZ";
+      };
+  
   home.file.".config/hypr/keybind.conf".source = ./dotfiles/keybind.conf;
 }

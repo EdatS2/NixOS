@@ -10,8 +10,7 @@ window.bottom_bar#waybar {
 }
 
 window.top_bar#waybar {
-  background-color: alpha(@base, 0.7);
-  border-bottom: solid alpha(@surface1, 0.7) 2;
+  background-color: transparent;
 }
 
 window.left_bar#waybar {

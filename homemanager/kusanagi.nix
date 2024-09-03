@@ -65,6 +65,7 @@
     zapzap #whatsapp
     pavucontrol #for controlling audio
     traceroute #finding out connection issues
+    fastfetch #flex the config
   ];
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "23.11";
