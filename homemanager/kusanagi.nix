@@ -26,13 +26,6 @@
         			'';
     };
   };
-  gtk = {
-    enable = true;
-    theme = {
-      name = "catppuccin-gtk";
-      package = pkgs.catppuccin-gtk;
-    };
-  };
   home.packages = with pkgs; [
     unzip
     thunderbird
@@ -50,7 +43,7 @@
     moonlight-qt
     psst
     playerctl
-    teams-for-linux
+    # teams-for-linux
     hunspell
     onedrive
     libreoffice
@@ -70,6 +63,8 @@
     libgsf #docs odf thumbnails
     geekbench_6 #benchmark
     zapzap #whatsapp
+    pavucontrol #for controlling audio
+    traceroute #finding out connection issues
   ];
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "23.11";

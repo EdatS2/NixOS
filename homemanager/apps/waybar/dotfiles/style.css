@@ -262,6 +262,12 @@ window.left_bar .modules-center {
 
 #cpu {
   color: @sapphire;
+  background-color: alpha(@surface1, 0.7);
+  border-radius: 15;
+  padding-left: 20;
+  padding-right: 20;
+  margin-top: 5;
+  margin-bottom: 5;
 }
 
 #cpu.low {
@@ -286,6 +292,12 @@ window.left_bar .modules-center {
 
 #memory {
   color: @sapphire;
+  background-color: alpha(@surface1, 0.7);
+  border-radius: 15;
+  padding-left: 20;
+  padding-right: 20;
+  margin-top: 5;
+  margin-bottom: 5;
 }
 
 #memory.low {
@@ -342,6 +354,12 @@ window.left_bar .modules-center {
 
 #battery {
   color: @teal;
+  background-color: alpha(@surface1, 0.7);
+  border-radius: 15;
+  padding-left: 20;
+  padding-right: 20;
+  margin-top: 5;
+  margin-bottom: 5;
 }
 
 #battery.low {
@@ -366,6 +384,12 @@ window.left_bar .modules-center {
 
 #backlight {
   color: @overlay0;
+  background-color: alpha(@surface1, 0.7);
+  border-radius: 15;
+  padding-left: 20;
+  padding-right: 20;
+  margin-top: 5;
+  margin-bottom: 5;
 }
 
 #backlight.low {
@@ -398,6 +422,12 @@ window.left_bar .modules-center {
 
 #pulseaudio {
   color: @text;
+  background-color: alpha(@surface1, 0.7);
+  border-radius: 15;
+  padding-left: 20;
+  padding-right: 20;
+  margin-top: 5;
+  margin-bottom: 5;
 }
 
 #pulseaudio.low {

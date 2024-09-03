@@ -5,7 +5,7 @@
     pkgs.nixpkgs-fmt
     pkgs.nixd
     pkgs.cargo
-    pkgs.llm-ls
+#    pkgs.llm-ls
     pkgs.texliveFull
     pkgs.clang-tools
     pkgs.jdk

@@ -25,14 +25,17 @@ let
 	${pkgs.dunst}/bin/dunst &
 	${pkgs.waybar}/bin/waybar &
     ${pkgs.thunderbird}/bin/thunderbird &
-    ${pkgs.whatsapp-for-linux}/bin/whatsapp-for-linux &
+    ${pkgs.zapzap}/bin/zapzap &
 	
 	sleep 1
  	${pkgs.swww}/bin/swww img ${./gits.jpg} &
 	'';
 in
 {
-  home.packages = [
+  home.packages = with pkgs; [
+    hyprland-workspaces
+    xdg-desktop-portal-hyprland
+    hyprlock
   ];
 #  nix.settings = {
 #    substituters = ["https://hyprland.cachix.org"];
@@ -51,5 +54,16 @@ in
       '';
 #"env" = "WLR_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0";
     };
+  gtk = {
+      enable = true;
+      theme = {
+          package= pkgs.gruvbox-dark-gtk;
+          name = "gruvbox-dark";
+      };
+      iconTheme = {
+          package= pkgs.adwaita-icon-theme;
+          name = "Adwaita";
+      };
+  };
   home.file.".config/hypr/keybind.conf".source = ./dotfiles/keybind.conf;
 }

@@ -22,7 +22,7 @@ programs.zsh = {
     plugins = [ "git" 
 #                "thefuck"
                 "direnv"];
-    theme = "robbyrussell";
+    theme = "half-life";
   };
 };
 

@@ -1,16 +1,14 @@
-// Double Bar Config
-[
 // Top Bar Config
 {
     // Main Config
     "name": "top_bar",
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 36, // Waybar height (to be removed for auto height)
+    "height": 50, // Waybar height (to be removed for auto height)
     "spacing": 4, // Gaps between modules (4px)
     "modules-left": ["hyprland/workspaces", "hyprland/submap"],
     "modules-center": ["clock#time", "custom/separator", "clock#week", "custom/separator_dot", "clock#month", "custom/separator", "clock#calendar"],
-    "modules-right": [ "bluetooth", "network", "group/misc", "custom/logout_menu" ],
+    "modules-right": [ "cpu", "memory", "battery", "backlight", "pulseaudio","bluetooth", "network", "group/misc", "custom/logout_menu" ],
 
     // Modules Config
     "hyprland/workspaces": {
@@ -120,7 +118,7 @@
             "Paused": "",
         },
         "max-length": 35,
-        "exec": "fish -c fetch_music_player_data",
+        "exec": "zsh -c fetch_music_player_data",
         "on-click": "playerctl play-pause",
         "on-click-right": "playerctl next",
         "on-click-middle": "playerctl prev",
@@ -140,7 +138,7 @@
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t({device_battery_percentage}%)",
         "max-length": 35,
-        "on-click": "fish -c bluetooth_toggle",
+        "on-click": "zsh -c bluetooth_toggle",
         "on-click-right": "blueman-manager",
     },
 
@@ -176,34 +174,34 @@
     "custom/recording": {
         "interval": 1,
         "exec-if": "pgrep wf-recorder",
-        "exec": "fish -c check_recording",
+        "exec": "zsh -c check_recording",
         "return-type": "json",
     },
 
     "custom/geo": {
         "interval": 1,
         "exec-if": "pgrep geoclue",
-        "exec": "fish -c check_geo_module",
+        "exec": "zsh -c check_geo_module",
         "return-type": "json",
     },
 
     "custom/airplane_mode": {
         "return-type": "json",
         "interval": 1,
-        "exec": "fish -c check_airplane_mode",
-        "on-click": "fish -c airplane_mode_toggle",
+        "exec": "zsh -c check_airplane_mode",
+        "on-click": "zsh -c airplane_mode_toggle",
     },
 
     "custom/night_mode": {
         "return-type": "json",
         "interval": 1,
-        "exec": "fish -c check_night_mode",
-        "on-click": "fish -c night_mode_toggle",
+        "exec": "zsh -c check_night_mode",
+        "on-click": "zsh -c night_mode_toggle",
     },
     
     "custom/dunst": {
         "return-type": "json",
-        "exec": "fish -c dunst_pause",
+        "exec": "zsh -c dunst_pause",
         "on-click": "dunstctl set-paused toggle",
         "restart-interval": 1,
     },
@@ -223,44 +221,10 @@
         "return-type": "json",
         "exec": "echo '{ \"text\":\"󰐥\", \"tooltip\": \"logout menu\" }'",
         "interval": "once",
-        "on-click": "fish -c wlogout_uniqe",
+        "on-click": "zsh -c wlogout_uniqe",
     },
- 
-},
-
-
-// Left Bar Config
-{
-    // Main Config
-    "name": "left_bar",
-    "layer": "top", // Waybar at top layer
-    "position": "left", // Waybar position (top|bottom|left|right)
-    "spacing": 4, // Gaps between modules (4px)
-    "width": 50,
-    "margin-top": 10,
-    "margin-bottom": 10,
-    "modules-left": ["wlr/taskbar"],
-    "modules-center": ["cpu", "memory", "disk", "temperature", "battery", "backlight", "pulseaudio"],
-    "modules-right": ["tray"],
-
-    // Modules Config
-    "wlr/taskbar": {
-        "format": "{icon}",
-        "icon-size": 20,
-        "icon-theme": "Numix-Circle",
-        "tooltip-format": "{title}",
-        "on-click": "activate",
-        "on-click-right": "close",
-        "on-click-middle": "fullscreen",
-    },
-
-    "tray":{
-        "icon-size": 20,
-        "spacing": 2,
-    },
-
     "cpu": {
-        "format": "󰻠{usage}%",
+        "format": "󰻠  {usage}%",
         "states": {
             "high": 90,
             "upper-medium": 70,
@@ -268,12 +232,12 @@
             "lower-medium": 30,
             "low": 10,
         },
-        "on-click": "wezterm start btop",
-        "on-click-right": "wezterm start btm",
+        "on-click": "alacritty start btop",
+        "on-click-right": "alacritty start btm",
     },
     
     "memory": {
-        "format": "{percentage}%",
+        "format": "  {percentage}%",
         "tooltip-format": "Main: ({used} GiB/{total} GiB)({percentage}%), available {avail} GiB\nSwap: ({swapUsed} GiB/{swapTotal} GiB)({swapPercentage}%), available {swapAvail} GiB",
         "states": {
             "high": 90,
@@ -282,31 +246,8 @@
             "lower-medium": 30,
             "low": 10,
         },
-        "on-click": "wezterm start btop",
-        "on-click-right": "wezterm start btm",
-    },
-
-    "disk": {
-        "format": "󰋊{percentage_used}%",  
-        "tooltip-format": "({used}/{total})({percentage_used}%) in '{path}', available {free}({percentage_free}%)",
-        "states": {
-            "high": 90,
-            "upper-medium": 70,
-            "medium": 50,
-            "lower-medium": 30,
-            "low": 10,
-        },
-        "on-click": "wezterm start btop",
-        "on-click-right": "wezterm start btm",
-    },
-
-    "temperature": {
-        "tooltip": false,
-        "thermal-zone": 8,
-        "critical-threshold": 80,
-        "format": "{icon}{temperatureC}󰔄",
-        "format-critical": "🔥{icon}{temperatureC}󰔄",
-        "format-icons": [ "", "", "", "", "" ],
+        "on-click": "alacritty start btop",
+        "on-click-right": "alacritty start btm",
     },
 
     "battery": {
@@ -318,8 +259,8 @@
             "low": 10,
         },
         "format": "{icon}{capacity}%",
-        "format-charging": "󱐋{icon}{capacity}%",
-        "format-plugged": "󰚥{icon}{capacity}%",
+        "format-charging": "󱐋 {icon}{capacity}%",
+        "format-plugged": "󰚥 {icon}{capacity}%",
         "format-time": "{H} h {M} min",
         "format-icons": [ "󱃍", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
         "tooltip-format": "{timeTo}",
@@ -361,12 +302,12 @@
             "low": 10,
         },
         "tooltip-format": "{desc}",
-        "format": "{icon}{volume}%\n{format_source}",  
-        "format-bluetooth": "󰂱{icon}{volume}%\n{format_source}",
-        "format-bluetooth-muted": "󰂱󰝟{volume}%\n{format_source}",
-        "format-muted": "󰝟{volume}%\n{format_source}",
-        "format-source": "󰍬{volume}%",
-        "format-source-muted": "󰍭{volume}%",
+        "format": "{icon}{volume}%{format_source}",  
+        "format-bluetooth": "󰂱 {icon}{volume}%{format_source}",
+        "format-bluetooth-muted": "󰂱󰝟 {volume}%{format_source}",
+        "format-muted": "󰝟 {volume}%{format_source}",
+        "format-source": "󰍬 {volume}%",
+        "format-source-muted": "󰍭 {volume}",
         "format-icons": {
             "headphone": "󰋋",
             "hands-free": "",
@@ -387,5 +328,6 @@
         "reverse-mouse-scrolling": true,
         "on-click": "pavucontrol",
     },
-},
-]
+}
+
+

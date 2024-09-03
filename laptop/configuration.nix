@@ -11,7 +11,7 @@
       ./hardware-configuration.nix
       ./greetd.nix
       ./nvidia.nix
-      ./theme.nix
+#      ./theme.nix
       ./wireguard.nix
     ];
   # enable flakes
@@ -82,6 +82,21 @@
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 60d";
+  };
+
+  services.borgbackup.jobs."ishikawa" = {
+    paths = "/home/kusanagi";
+    exclude = [ "/home/*/.cache" 
+                "/home/kusanagi/Downloads" 
+                "/home/kusanagi/.mozilla/"
+                ];
+    user = "kusanagi";
+    repo = "ssh://tade@192.168.2.55//mnt/Salverda/Tade/ishikawa";
+    encryption = {
+        mode = "keyfile";
+        passCommand = "cat /etc/nixos/keys/borg_passwd";
+    };
+    startAt = "daily";
   };
 
   #file explorer
@@ -195,7 +210,6 @@
 
 
   # Enable sound.
-  sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -233,7 +247,7 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    xdg-desktop-portal-hyprland
+    #xdg-desktop-portal-hyprland
     dconf
     btrfs-progs
     grub2_efi
