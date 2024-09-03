@@ -11,7 +11,7 @@
       ./hardware-configuration.nix
       ./greetd.nix
       ./nvidia.nix
-#      ./theme.nix
+      #      ./theme.nix
       ./wireguard.nix
     ];
   # enable flakes
@@ -86,15 +86,16 @@
 
   services.borgbackup.jobs."ishikawa" = {
     paths = "/home/kusanagi";
-    exclude = [ "/home/*/.cache" 
-                "/home/kusanagi/Downloads" 
-                "/home/kusanagi/.mozilla/"
-                ];
+    exclude = [
+      "/home/*/.cache"
+      "/home/kusanagi/Downloads"
+      "/home/kusanagi/.mozilla/"
+    ];
     user = "kusanagi";
     repo = "ssh://tade@192.168.2.55//mnt/Salverda/Tade/ishikawa";
     encryption = {
-        mode = "keyfile";
-        passCommand = "cat /etc/nixos/keys/borg_passwd";
+      mode = "keyfile";
+      passCommand = "cat /etc/nixos/keys/borg_passwd";
     };
     startAt = "daily";
   };
@@ -225,6 +226,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "input" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
+    hashedPassword = "$6$oLD/A.d6HHi2kKZu$zTzEKSS1aO8Fh9CC2oVYUJvNk97rla7elixI8AWFvXDJqFx3EsGR/S.rQC4ML43Va1AQWgXYCno2VFvCXwcIM0";
     packages = with pkgs; [
       firefox
       tree
