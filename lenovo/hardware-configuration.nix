@@ -8,50 +8,52 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" "aesni_intel" "cryptd"];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/435aa4a9-4c87-4393-a304-003ee69afebb";
+    { device = "/dev/disk/by-uuid/d015a84b-467f-47d2-a955-7f3f4144c5b4";
       fsType = "btrfs";
-      options = [ "subvol=root" ];
+      options = [ "subvol=root" "compress=zstd" "noatime" ];
     };
 
+  boot.initrd.luks.devices."enc".device = "/dev/disk/by-uuid/06c8ef8c-1675-4d75-8222-14814e71d3c7";
+  boot.supportedFilesystems = [ "btrfs" ];
+
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/435aa4a9-4c87-4393-a304-003ee69afebb";
+    { device = "/dev/disk/by-uuid/d015a84b-467f-47d2-a955-7f3f4144c5b4";
       fsType = "btrfs";
-      options = [ "subvol=home" ];
+      options = [ "subvol=home"  "compress=zstd" "noatime"];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/435aa4a9-4c87-4393-a304-003ee69afebb";
+    { device = "/dev/disk/by-uuid/d015a84b-467f-47d2-a955-7f3f4144c5b4";
       fsType = "btrfs";
-      options = [ "subvol=nix" ];
+      options = [ "subvol=nix"  "compress=zstd" "noatime"];
     };
 
   fileSystems."/persist" =
-    { device = "/dev/disk/by-uuid/435aa4a9-4c87-4393-a304-003ee69afebb";
+    { device = "/dev/disk/by-uuid/d015a84b-467f-47d2-a955-7f3f4144c5b4";
       fsType = "btrfs";
-      options = [ "subvol=persist" ];
+      options = [ "subvol=persist"  "compress=zstd" "noatime"];
     };
 
   fileSystems."/var/log" =
-    { device = "/dev/disk/by-uuid/435aa4a9-4c87-4393-a304-003ee69afebb";
+    { device = "/dev/disk/by-uuid/d015a84b-467f-47d2-a955-7f3f4144c5b4";
       fsType = "btrfs";
-      options = [ "subvol=log" ];
+      options = [ "subvol=log"  "compress=zstd" "noatime"];
+      neededForBoot = true;
     };
 
-  fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/5F08-844A";
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/D16C-FC77";
       fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
   swapDevices = [ ];
-  powerManagement.powertop.enable = true;
-  powerManagement.cpuFreqGovernor = "powersave";
-  hardware.nvidia.powerManagement.enable = true;
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

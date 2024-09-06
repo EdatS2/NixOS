@@ -21,46 +21,20 @@
       	'';
   };
 
+
   # use the latest hardened kernel
   #boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
   # Use the systemd-boot EFI boot loader.
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  boot.loader.grub = {
-    enable = true;
-    device = "nodev";
-    efiSupport = true;
-    enableCryptodisk = true;
-    extraGrubInstallArgs = [
-      "--modules=part_gpt luks2 cryptodisk gcry_rijndael gcry_sha256 gcry_sha512 btrfs true"
-    ];
-  };
-  boot.kernelParams = [ "pcie_aspm=force" "pcie_aspm.policy=powersave" ];
-  boot.initrd.kernelModules = [ "usb_storage" ];
-  boot.initrd = {
-    luks.devices.luksroot = {
-      device = "/dev/disk/by-uuid/8bca95bc-7ddc-41c7-9e2f-d72096a3b57f";
-      #keyFileSize = 4096;
-      #		keyFile = "/dev/disk/by-id/usb-_USB_DISK_2.0_0774180006BE-0:0";
-      keyFile = "/keyfile.bin";
-      fallbackToPassword = true;
-    };
-    secrets = {
-      "keyfile.bin" = "/etc/nixos/keys/crypto_keyfile.bin";
-    };
-  };
+  boot.initrd.enable = true;
+  boot.loader.systemd-boot.enable = true;
   services.udev.packages = with pkgs; [
     vial
     via
   ];
-
-  fileSystems = {
-    "/".options = [ "compress=zstd" ];
-    "/home".options = [ "compress=zstd" ];
-    "/nix".options = [ "compress=zstd" "noatime" ];
-    "/persist".options = [ "compress=zstd" ];
-    "/var/log".options = [ "compress=zstd" ];
-  };
+  #powermanagement
+  powerManagement.powertop.enable = true;
+  powerManagement.cpuFreqGovernor = "powersave";
   # services.btrbk = {
   #   instances."Sibelius" = {
   #     onCalendar = "daily";
@@ -194,7 +168,6 @@
   #
 
   # Enable sound.
-  sound.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = false;
@@ -236,7 +209,6 @@
     xdg-desktop-portal-hyprland
     dconf
     btrfs-progs
-    grub2_efi
     libargon2
     meson
     wayland-protocols
@@ -259,13 +231,6 @@
   ];
 
   # install hyprland
-  hardware.graphics.enable = true;
-  hardware.graphics.extraPackages = with pkgs; [
-    intel-media-driver
-    intel-vaapi-driver
-    vaapiVdpau
-    libvdpau-va-gl
-  ];
 
   fonts.packages = with pkgs; [
     noto-fonts
@@ -322,7 +287,7 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
 }
 
