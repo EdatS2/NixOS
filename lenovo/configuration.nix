@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs,nixos-06cb-009a-fingerprint-sensor, ... }:
+{ config, lib, pkgs, nixos-06cb-009a-fingerprint-sensor, ... }:
 
 {
   imports =
@@ -10,7 +10,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./greetd.nix
-#      ./theme.nix
+      #      ./theme.nix
       ./wireguard.nix
     ];
   # enable flakes
@@ -27,7 +27,12 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.enable = true;
-  boot.loader.systemd-boot.enable = true;
+  #setting up lanzaboote
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.lanzaboote = {
+      enable = true;
+      pkiBundle = "/etc/secureboot";
+  };
   services.udev.packages = with pkgs; [
     vial
     via
@@ -40,14 +45,14 @@
   # };
   # # services.python-validity.enable = true;
   services.fprintd = {
-  enable = true;
-  tod = {
     enable = true;
-    driver = nixos-06cb-009a-fingerprint-sensor.lib.libfprint-2-tod1-vfs0090-bingch {
-      calib-data-file = ./calib-data.bin;
+    tod = {
+      enable = true;
+      driver = nixos-06cb-009a-fingerprint-sensor.lib.libfprint-2-tod1-vfs0090-bingch {
+        calib-data-file = ./calib-data.bin;
+      };
     };
   };
-};
   #powermanagement
   powerManagement.powertop.enable = true;
   powerManagement.cpuFreqGovernor = "powersave";
@@ -217,7 +222,7 @@
       		'';
   };
   security.pam.services.kusangi = {
-      fprintAuth= true;
+    fprintAuth = true;
   };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -247,6 +252,7 @@
     strongswanNM
     cacert.unbundled #get unbundled cacerts for strongswan
     #linuxKernel.packages.linux_xanmod.xpadneo
+    sbctl #enrolling secureboot keys
   ];
 
   # install hyprland

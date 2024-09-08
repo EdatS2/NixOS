@@ -50,6 +50,9 @@ Another thing that would be interesting to try would be an impermanent setup, wh
 # Second laptop (ThinkPad)
 Having a second laptop now adds further flavour to the setup, as this laptop also comes with biometric security. As such a fingerprint sensor is set up in the configuration. Furthermore, this laptop lacks a dgpu. Making it more compatible with Linux suspend and hibernate. This laptop has been setup with [Lanzaboote](https://github.com/nix-community/lanzaboote) in mind, as such systemd-boot is used as grub is not compatible. It should be noted that the earlier description of setting up encryption is simpler with an unencrypted `/boot` as more crypt modules are available later in the boot. Other than that, the setups are mostly identical, as is the advantage of using nix :).  
 
+## Secureboot
+The laptop is using secureboot, using lanzaboote. Protecting it from evil maid attacks for example. Setting this up is quite straight forward, the guide provided by the lanzaboote project is nice and detailed and worked for me without issue.
+
 ## Backup
 The backups are handeld using [Borg](https://www.borgbackup.org) as it offers deduplicated encrypted backups over ssh. Simplifying server setup, which I found more difficult using btrbk, the btrfs backup utility. The frontend Vorta is used, to simplify restoring from backup over using the CLI. 
 
