@@ -47,4 +47,9 @@ A few goals are not yet realized in this configuration: automatic btrfs snapshot
 Furthermore, the system does not yet utilize secure boot, because the secure boot project for NixOS, [Lanzaboote](https://github.com/nix-community/lanzaboote), is focussed on systemd boot, not grub. Following the playbook as set out on the [arch wiki](https://wiki.archlinux.org/title/GRUB#Secure_Boot_support) should be possible and it could possibly be made into a Nix package, however I have not tried this yet. 
 Another thing that would be interesting to try would be an impermanent setup, where `/root` is destroyed on each boot, this adds a level of safety towards malware as all programs not configured by the Nix configuration would be destroyed, being outside the `/nix/store`.
 
+# Second laptop (ThinkPad)
+Having a second laptop now adds further flavour to the setup, as this laptop also comes with biometric security. As such a fingerprint sensor is set up in the configuration. Furthermore, this laptop lacks a dgpu. Making it more compatible with Linux suspend and hibernate. This laptop has been setup with [Lanzaboote](https://github.com/nix-community/lanzaboote) in mind, as such systemd-boot is used as grub is not compatible. It should be noted that the earlier description of setting up encryption is simpler with an unencrypted `/boot` as more crypt modules are available later in the boot. Other than that, the setups are mostly identical, as is the advantage of using nix :).  
+
+## Backup
+The backups are handeld using [Borg](https://www.borgbackup.org) as it offers deduplicated encrypted backups over ssh. Simplifying server setup, which I found more difficult using btrbk, the btrfs backup utility. The frontend Vorta is used, to simplify restoring from backup over using the CLI. 
 

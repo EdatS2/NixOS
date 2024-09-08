@@ -216,6 +216,9 @@
       		auth include login
       		'';
   };
+  security.pam.services.kusangi = {
+      fprintAuth= true;
+  };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   nixpkgs.config.allowUnfree = true;
