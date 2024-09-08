@@ -147,9 +147,9 @@ window.top_bar .modules-center {
 
 #network {
   background-color: alpha(@surface1, 0.7);
-  border-radius: 15;
-  padding-left: 15;
-  padding-right: 15;
+  border-radius: 10;
+  padding-left: 10;
+  padding-right: 10;
   margin-left: 2;
   margin-right: 2;
   margin-top: 5;
@@ -262,9 +262,9 @@ window.left_bar .modules-center {
 #cpu {
   color: @sapphire;
   background-color: alpha(@surface1, 0.7);
-  border-radius: 15;
-  padding-left: 20;
-  padding-right: 20;
+  border-radius: 10;
+  padding-left: 10;
+  padding-right: 10;
   margin-top: 5;
   margin-bottom: 5;
 }
@@ -292,9 +292,9 @@ window.left_bar .modules-center {
 #memory {
   color: @sapphire;
   background-color: alpha(@surface1, 0.7);
-  border-radius: 15;
-  padding-left: 20;
-  padding-right: 20;
+  border-radius: 10;
+  padding-left: 10;
+  padding-right: 10;
   margin-top: 5;
   margin-bottom: 5;
 }
@@ -354,9 +354,9 @@ window.left_bar .modules-center {
 #battery {
   color: @teal;
   background-color: alpha(@surface1, 0.7);
-  border-radius: 15;
-  padding-left: 20;
-  padding-right: 20;
+  border-radius: 10;
+  padding-left: 10;
+  padding-right: 10;
   margin-top: 5;
   margin-bottom: 5;
 }
@@ -384,9 +384,9 @@ window.left_bar .modules-center {
 #backlight {
   color: @overlay0;
   background-color: alpha(@surface1, 0.7);
-  border-radius: 15;
-  padding-left: 20;
-  padding-right: 20;
+  border-radius: 10;
+  padding-left: 10;
+  padding-right: 10;
   margin-top: 5;
   margin-bottom: 5;
 }
@@ -422,9 +422,9 @@ window.left_bar .modules-center {
 #pulseaudio {
   color: @text;
   background-color: alpha(@surface1, 0.7);
-  border-radius: 15;
-  padding-left: 20;
-  padding-right: 20;
+  border-radius: 10;
+  padding-left: 10;
+  padding-right: 10;
   margin-top: 5;
   margin-bottom: 5;
 }

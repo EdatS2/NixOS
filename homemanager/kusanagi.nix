@@ -1,4 +1,4 @@
-{ inputs, pkgs, hyprland, ... }:
+{ inputs, pkgs, hyprland, config, ... }:
 {
   imports = [
     ./apps
@@ -66,6 +66,10 @@
     pavucontrol #for controlling audio
     traceroute #finding out connection issues
     fastfetch #flex the config
+    inxi #for checking battery life
+    pomodoro #title says all
+    borgbackup #for backup
+    vorta #frontend for borg
   ];
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "23.11";

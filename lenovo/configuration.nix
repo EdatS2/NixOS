@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs,nixos-06cb-009a-fingerprint-sensor, ... }:
 
 {
   imports =
@@ -10,7 +10,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./greetd.nix
-      ./theme.nix
+#      ./theme.nix
       ./wireguard.nix
     ];
   # enable flakes
@@ -32,6 +32,22 @@
     vial
     via
   ];
+  # biometrics 
+  # services.open-fprintd = {
+  #     enable = true;
+  #     # tod.enable = true;
+  #     # tod.driver = pkgs.libfprint-2-tod1-vfs0090;
+  # };
+  # # services.python-validity.enable = true;
+  services.fprintd = {
+  enable = true;
+  tod = {
+    enable = true;
+    driver = nixos-06cb-009a-fingerprint-sensor.lib.libfprint-2-tod1-vfs0090-bingch {
+      calib-data-file = ./calib-data.bin;
+    };
+  };
+};
   #powermanagement
   powerManagement.powertop.enable = true;
   powerManagement.cpuFreqGovernor = "powersave";

@@ -154,7 +154,7 @@
         // "format-linked": "󰈀 {ifname} (No IP)",
         // "tooltip-format-ethernet":"Interface: {ifname}\nIP: {ipaddr}\nGW: {gwaddr}\nNetmask: {netmask}\nCIDR: {cidr}\n\n<span color='#a6da95'>{bandwidthUpBits}</span>\t<span color='#ee99a0'>{bandwidthDownBits}</span>\t<span color='#c6a0f6'>󰹹{bandwidthTotalBits}</span>",
         "max-length": 35,
-        "on-click": "nm-applet",
+        "on-click": "alacritty -e nm-tui",
         "on-click-right": "nm-connection-editor",
     },
 
@@ -232,8 +232,8 @@
             "lower-medium": 30,
             "low": 10,
         },
-        "on-click": "alacritty start btop",
-        "on-click-right": "alacritty start btm",
+        "on-click": "alacritty -e btop",
+        "on-click-right": "alacritty -e btm",
     },
     
     "memory": {
@@ -246,8 +246,8 @@
             "lower-medium": 30,
             "low": 10,
         },
-        "on-click": "alacritty start btop",
-        "on-click-right": "alacritty start btm",
+        "on-click": "alacritty -e btop",
+        "on-click-right": "alacritty -e btm",
     },
 
     "battery": {

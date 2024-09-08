@@ -11,7 +11,7 @@ programs.zsh = {
 
   shellAliases = {
     ll = "ls -l";
-    rebuild = ''sudo nixos-rebuild --flake "/etc/nixos?submodules=1#${osConfig.networking.hostname}" switch''; 
+    rebuild = ''sudo nixos-rebuild --flake "/etc/nixos?submodules=1#${osConfig.networking.hostName}" switch''; 
     edit = "cd /etc/nixos; nvim .; cd $(echo $OLDPWD)";
     update = ''cd /etc/nixos; nix flake update --commit-lock-file; cd $(echo $OLDPWD)'';
   };
