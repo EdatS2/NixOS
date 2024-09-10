@@ -26,6 +26,7 @@ let
 	${pkgs.waybar}/bin/waybar &
     ${pkgs.thunderbird}/bin/thunderbird &
     ${pkgs.zapzap}/bin/zapzap &
+    ${pkgs.vorta}/bin/vorta -d &
 	
 	sleep 1
  	${pkgs.swww}/bin/swww img ${./gits.jpg} &
