@@ -189,7 +189,7 @@
   #
 
   # Enable sound.
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.enable = false;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = false;
   services.blueman.enable = true;
@@ -216,6 +216,11 @@
     MOZ_ENABLE_WAYLAND = "1 thunderbird";
   };
 
+  security.pam.services.hyprlock = {
+    text = ''
+      		auth include login
+      		'';
+  };
   security.pam.services.swaylock = {
     text = ''
       		auth include login

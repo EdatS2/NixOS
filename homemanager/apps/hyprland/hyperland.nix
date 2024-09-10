@@ -35,7 +35,6 @@ in
   home.packages = with pkgs; [
     hyprland-workspaces
     xdg-desktop-portal-hyprland
-    hyprlock
   ];
 #  nix.settings = {
 #    substituters = ["https://hyprland.cachix.org"];
@@ -48,7 +47,7 @@ in
     systemd.enable = true;
     extraConfig = ''
       exec-once = ${startupScript}/bin/start
-      $lock = ${lock_script}/bin/lock_screen
+      $lock = ${pkgs.hyprlock}/bin/hyprlock -c ~/.config/hyprlock/hyprlock.conf
       env = WLR_NO_HARDWARE_CURSORS,1
       source = ./keybind.conf
       '';
