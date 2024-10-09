@@ -30,13 +30,19 @@
   #setting up lanzaboote
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.lanzaboote = {
-      enable = true;
-      pkiBundle = "/etc/secureboot";
+    enable = true;
+    pkiBundle = "/etc/secureboot";
   };
   services.udev.packages = with pkgs; [
     vial
     via
   ];
+  # virtualization
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+  virtualisation.docker.storageDriver = "btrfs";
   # biometrics 
   # services.open-fprintd = {
   #     enable = true;
@@ -44,6 +50,17 @@
   #     # tod.driver = pkgs.libfprint-2-tod1-vfs0090;
   # };
   # # services.python-validity.enable = true;
+  # nix.distributedBuilds = true;
+  # nix.buildMachines = [
+  # "Melchior" {
+  #   system = "x86_64-linux";
+  #   sshKey = "/home/kusanagi/.ssh/id_ed25519";
+  #   sshUser = "admin";
+  #   hostName = "192.168.88.15";
+  #   maxJobs = 20;
+  #   speedFactor = 10;
+  # }
+  # ];
   services.fprintd = {
     enable = true;
     tod = {
@@ -114,6 +131,9 @@
     plugins = [
       pkgs.networkmanager_strongswan
     ];
+  };
+  programs.steam = {
+    enable = true;
   };
   services.strongswan-swanctl = {
     enable = false;
@@ -195,6 +215,10 @@
   services.blueman.enable = true;
   services.hardware.bolt.enable = true;
   hardware.xpadneo.enable = true;
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [ intel-media-driver intel-ocl intel-vaapi-driver ];
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -276,6 +300,7 @@
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
+  programs.nix-ld.enable = true;
   programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;

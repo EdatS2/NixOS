@@ -17,14 +17,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
-  outputs = inputs@{ self, 
-                    nixpkgs, 
-                    home-manager, 
-                    hyprland, 
-                    nixos-06cb-009a-fingerprint-sensor, 
-                    old_pkgs,
-                    lanzaboote }:
+  outputs =
+    inputs@{ self
+    , nixpkgs
+    , home-manager
+    , hyprland
+    , nixos-06cb-009a-fingerprint-sensor
+    , old_pkgs
+    , lanzaboote
+    }:
     {
       nixosConfigurations = {
         ishikawa = nixpkgs.lib.nixosSystem rec {

@@ -43,7 +43,7 @@
     moonlight-qt
     psst
     playerctl
-    # teams-for-linux
+    teams-for-linux
     hunspell
     onedrive
     libreoffice
@@ -67,9 +67,10 @@
     traceroute #finding out connection issues
     fastfetch #flex the config
     inxi #for checking battery life
-    pomodoro #title says all
+    pomodoro-gtk #title says all
     borgbackup #for backup
     vorta #frontend for borg
+    remmina #for remote desktop
   ];
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "23.11";
