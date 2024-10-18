@@ -217,7 +217,7 @@
   hardware.xpadneo.enable = true;
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [ intel-media-driver intel-ocl intel-vaapi-driver ];
+    extraPackages = with pkgs; [ intel-media-driver intel-compute-runtime intel-vaapi-driver ];
   };
 
   # Enable touchpad support (enabled default in most desktopManager).

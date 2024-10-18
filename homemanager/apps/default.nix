@@ -8,5 +8,6 @@
 		./waybar/waybar.nix
         ./zsh/zsh.nix
         ./alacritty/alacritty.nix
+        ./kanshi/kanshi.nix
 		];
 		}
