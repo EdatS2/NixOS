@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, nixos-06cb-009a-fingerprint-sensor, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
   imports =
@@ -14,16 +14,9 @@
       ./wireguard.nix
     ];
   # enable flakes
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      		experimental-features = nix-command flakes
-      	'';
-  };
-
-
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # use the latest hardened kernel
-  #boot.kernelPackages = pkgs.linuxKernel.packages.linux_xanmod;
+  boot.kernelPackages = pkgs.linuxPackages_6_11;
   # Use the systemd-boot EFI boot loader.
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.enable = true;
@@ -65,7 +58,7 @@
     enable = true;
     tod = {
       enable = true;
-      driver = nixos-06cb-009a-fingerprint-sensor.lib.libfprint-2-tod1-vfs0090-bingch {
+      driver = inputs.nixos-06cb-009a-fingerprint-sensor.lib.libfprint-2-tod1-vfs0090-bingch {
         calib-data-file = ./calib-data.bin;
       };
     };
@@ -285,64 +278,74 @@
   ];
 
   # install hyprland
-
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    liberation_ttf
-    fira-code
-    fira-code-symbols
-    nerdfonts
-    font-awesome
-  ];
-  security.polkit.enable = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.nix-ld.enable = true;
-  programs.mtr.enable = true;
-  programs.gnupg.agent = {
+  programs.hyprland = {
     enable = true;
-    enableSSHSupport = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
+  # configuration.nix
+  nix.settings = {
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
 
-  # List services that you want to enable:
+  fonts.packages = with pkgs; [
+noto-fonts
+noto-fonts-cjk-sans
+noto-fonts-emoji
+liberation_ttf
+fira-code
+fira-code-symbols
+nerdfonts
+font-awesome
+];
+security.polkit.enable = true;
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.btrfs.autoScrub.enable = true;
-  services.btrfs.autoScrub.interval = "weekly";
-  services.btrfs.autoScrub.fileSystems = [ "/" ];
+# Some programs need SUID wrappers, can be configured further or are
+# started in user sessions.
+programs.nix-ld.enable = true;
+programs.mtr.enable = true;
+programs.gnupg.agent = {
+enable = true;
+enableSSHSupport = true;
+};
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+# List services that you want to enable:
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
+# Enable the OpenSSH daemon.
+services.openssh.enable = true;
+services.btrfs.autoScrub.enable = true;
+services.btrfs.autoScrub.interval = "weekly";
+services.btrfs.autoScrub.fileSystems = [ "/" ];
 
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.05"; # Did you read the comment?
+# Open ports in the firewall.
+# networking.firewall.allowedTCPPorts = [ ... ];
+# networking.firewall.allowedUDPPorts = [ ... ];
+# Or disable the firewall altogether.
+# networking.firewall.enable = false;
+
+# Copy the NixOS configuration file and link it from the resulting system
+# (/run/current-system/configuration.nix). This is useful in case you
+# accidentally delete configuration.nix.
+# system.copySystemConfiguration = true;
+
+# This option defines the first version of NixOS you have installed on this particular machine,
+# and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
+#
+# Most users should NEVER change this value after the initial install, for any reason,
+# even if you've upgraded your system to a new NixOS release.
+#
+# This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
+# so changing it will NOT upgrade your system.
+#
+# This value being lower than the current NixOS release does NOT mean your system is
+# out of date, out of support, or vulnerable.
+#
+# Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
+# and migrated your data accordingly.
+#
+# For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+system.stateVersion = "24.05"; # Did you read the comment?
 
 }
 

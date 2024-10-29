@@ -16,6 +16,7 @@
     pkgs.ansible-language-server
     pkgs.lua-language-server
     pkgs.texlab
+    pkgs.tree-sitter
   ];
 
   programs.neovim = {

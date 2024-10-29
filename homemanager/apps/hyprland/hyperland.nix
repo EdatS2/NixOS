@@ -22,9 +22,10 @@ let
     	'';
   bluetoothToggle = pkgs.pkgs.writeShellScriptBin "toggleBlue" ''
     # Get the current Bluetooth status
-    bluetooth_status=$(systemctl is-active bluetooth)
-
-    if [ "$bluetooth_status" == "active" ]; then
+    sleep 5
+    bluetooth_status=$(rfkill | awk '$1 == 1 && $2 == "bluetooth" {print $4}')
+    
+    if [ "$bluetooth_status" == "blocked" ]; then
         # If Bluetooth is active, turn it off
         bluetoothctl power off
         echo "Bluetooth turned OFF."

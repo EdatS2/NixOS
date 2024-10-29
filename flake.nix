@@ -42,8 +42,8 @@
             }
           ];
         };
-        borma = nixpkgs.lib.nixosSystem rec {
-          specialArgs = inputs;
+        borma = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs;};
           modules = [
             ./lenovo/configuration.nix
             ./smb/smb.nix
@@ -53,7 +53,7 @@
             # nixos-06cb-009a-fingerprint-sensor.nixosModules.python-validity
             {
               home-manager.extraSpecialArgs = nixpkgs.lib.mkMerge [
-                specialArgs
+                inputs
               ];
               home-manager.users.kusanagi = import ./homemanager/kusanagi.nix;
             }
