@@ -17,6 +17,8 @@
     pkgs.lua-language-server
     pkgs.texlab
     pkgs.tree-sitter
+    pkgs.ripgrep
+    pkgs.zls
   ];
 
   programs.neovim = {

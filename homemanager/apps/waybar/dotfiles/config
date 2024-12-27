@@ -6,7 +6,7 @@
     "position": "top", // Waybar position (top|bottom|left|right)
     "height": 50, // Waybar height (to be removed for auto height)
     "spacing": 4, // Gaps between modules (4px)
-    "modules-left": ["hyprland/workspaces", "hyprland/submap"],
+    "modules-left": ["hyprland/workspaces", "hyprland/submap", "tray"],
     "modules-center": ["clock#time", "custom/separator", "clock#week", "custom/separator_dot", "clock#month", "custom/separator", "clock#calendar"],
     "modules-right": [ "cpu", "memory", "battery", "backlight", "pulseaudio","bluetooth", "network", "group/misc", "custom/logout_menu" ],
 
@@ -38,6 +38,10 @@
     "hyprland/submap": {
         "format": "<span color='#a6da95'>Mode:</span> {}",
         "tooltip": false,
+    },
+    "tray": {
+        "icon-size": 10,
+        "spacing": 5
     },
 
     "clock#time": {

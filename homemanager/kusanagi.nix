@@ -28,7 +28,7 @@
   };
   home.packages = with pkgs; [
     unzip
-    thunderbird
+    thunderbird-latest
     wofi
     swww
     dunst
@@ -71,6 +71,7 @@
     borgbackup #for backup
     vorta #frontend for borg
     remmina #for remote desktop
+    kernelshark
   ];
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "23.11";
