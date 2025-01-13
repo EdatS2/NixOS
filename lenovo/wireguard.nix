@@ -14,7 +14,7 @@
 		address = [ "10.7.0.2/24" ];
 		listenPort = 51820;
 		privateKeyFile = "/etc/nixos/keys/sib_key";
-		dns = [ "192.168.0.125" ];	
+		dns = [ "1.1.1.1" ];	
 		peers = [{
 			publicKey = "UvFo3/tfEdi0VZ73mEoOS8Ka499XVB0LpagHlDgE1S4=";
 			presharedKeyFile = "/etc/nixos/keys/presib_key";

@@ -19,6 +19,7 @@
     pkgs.tree-sitter
     pkgs.ripgrep
     pkgs.zls
+    pkgs.marksman
   ];
 
   programs.neovim = {
