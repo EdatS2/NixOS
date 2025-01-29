@@ -71,7 +71,8 @@
     borgbackup #for backup
     vorta #frontend for borg
     remmina #for remote desktop
-    kernelshark
+    ghostty #terminal emulaturo
+    android-file-transfer #transfering files from phone and garmin
   ];
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "23.11";

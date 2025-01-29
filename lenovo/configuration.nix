@@ -73,6 +73,17 @@
       };
     };
   };
+  nix.buildMachines = [{
+      hostName = "melchior_build";
+      system = "x86_64-linux";
+      protocol = "ssh";
+      maxJobs = 18;
+      speedFactor = 10;
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      mandatoryFeatures = [ ];
+  }];
+  # nix.distributedBuilds = true;
+  # nix.extraOptions = " builders-use-substitutes = true\n";
   #powermanagement
   powerManagement.powertop.enable = true;
   powerManagement.cpuFreqGovernor = "powersave";
@@ -218,6 +229,11 @@
   };
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = with pkgs; [
+        brlaser
+        brgenml1lpr
+        brgenml1cupswrapper
+        ];
 
 
   # services.avahi = {
