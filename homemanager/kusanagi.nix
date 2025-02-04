@@ -73,6 +73,11 @@
     remmina #for remote desktop
     ghostty #terminal emulaturo
     android-file-transfer #transfering files from phone and garmin
+    # for ez documentation access
+    clang-manpages
+    linux-manual
+    man-pages
+    man-pages-posix
   ];
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "23.11";

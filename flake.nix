@@ -6,12 +6,12 @@
     };
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    hyprland.url = "github:hyprwm/Hyprland";
-    old_pkgs.url = "github:nixos/nixpkgs/nixos-23.11";
-    nixos-06cb-009a-fingerprint-sensor = {
-      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
-      inputs.nixpkgs.follows = "old_pkgs";
-    };
+    # hyprland.url = "github:hyprwm/Hyprland";
+    # old_pkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    # nixos-06cb-009a-fingerprint-sensor = {
+      # url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
+      # inputs.nixpkgs.follows = "old_pkgs";
+    # };
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,9 +21,9 @@
     inputs@{ self
     , nixpkgs
     , home-manager
-    , hyprland
-    , nixos-06cb-009a-fingerprint-sensor
-    , old_pkgs
+#    , hyprland
+#    , nixos-06cb-009a-fingerprint-sensor
+#    , old_pkgs
     , lanzaboote
     }:
     {

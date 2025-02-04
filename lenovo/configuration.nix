@@ -82,8 +82,8 @@
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       mandatoryFeatures = [ ];
   }];
-  # nix.distributedBuilds = true;
-  # nix.extraOptions = " builders-use-substitutes = true\n";
+  nix.distributedBuilds = true;
+  nix.extraOptions = " builders-use-substitutes = true\n";
   #powermanagement
   powerManagement.powertop.enable = true;
   powerManagement.cpuFreqGovernor = "powersave";
@@ -284,6 +284,11 @@
       pkgs.vim
     ];
   };
+  documentation.enable = true;
+  documentation.man = {
+    man-db.enable = false;
+    mandoc.enable = true;
+  };
   nix.settings.trusted-users = [ "kusanagi" ];
 
   environment.sessionVariables = {
@@ -337,14 +342,14 @@
   # install hyprland
   programs.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
   # configuration.nix
-  nix.settings = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-  };
+  # nix.settings = {
+  #   substituters = [ "https://hyprland.cachix.org" ];
+  #   trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+  # };
 
   fonts.packages = with pkgs; [
     noto-fonts
