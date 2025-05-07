@@ -36,6 +36,7 @@
     enable = true;
     pkiBundle = "/etc/secureboot";
   };
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   services.udev.packages = with pkgs; [
     vial
     via
@@ -67,7 +68,7 @@
   services.fprintd = {
     enable = false;
     tod = {
-      enable = true;
+      enable = false;
       driver = inputs.nixos-06cb-009a-fingerprint-sensor.lib.libfprint-2-tod1-vfs0090-bingch {
         calib-data-file = ./calib-data.bin;
       };
@@ -82,11 +83,11 @@
       supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
       mandatoryFeatures = [ ];
   }];
-  nix.distributedBuilds = true;
+  nix.distributedBuilds = false;
   nix.extraOptions = " builders-use-substitutes = true\n";
   #powermanagement
   powerManagement.powertop.enable = true;
-  powerManagement.cpuFreqGovernor = "powersave";
+  powerManagement.cpuFreqGovernor = "performance";
   # services.btrbk = {
   #   instances."Sibelius" = {
   #     onCalendar = "daily";
@@ -114,7 +115,7 @@
   programs.xfconf.enable = true;
   services.gvfs.enable = true;
   services.davmail = {
-    enable = true;
+    enable = false;
     url = "https://outlook.office365.com/EWS/Exchange.asmx";
     config = {
       davmail.mode = "O365Modern";
@@ -326,7 +327,7 @@
     clang
     ffmpegthumbnailer
     f3d
-    okular #to view pdf
+    kdePackages.okular
     feh #to view images
     strongswan
     gnutls
@@ -337,6 +338,7 @@
     cacert.unbundled #get unbundled cacerts for strongswan
     #linuxKernel.packages.linux_xanmod.xpadneo
     sbctl #enrolling secureboot keys
+    linuxKernel.packages.linux_6_13.turbostat
   ];
 
   # install hyprland

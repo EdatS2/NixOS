@@ -48,9 +48,9 @@
       fsType = "vfat";
     };
 
-  swapDevices = [ ];
+  swapDevices = lib.mkForce [ ];
   powerManagement.powertop.enable = true;
-  powerManagement.cpuFreqGovernor = "powersave";
+  powerManagement.cpuFreqGovernor = "performance";
   hardware.nvidia.powerManagement.enable = true;
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

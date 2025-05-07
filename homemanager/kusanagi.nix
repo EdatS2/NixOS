@@ -41,7 +41,7 @@
     btop
     discord
     moonlight-qt
-    psst
+    spotify
     playerctl
     teams-for-linux
     hunspell
@@ -63,6 +63,7 @@
     libgsf #docs odf thumbnails
     geekbench_6 #benchmark
     zapzap #whatsapp
+    signal-desktop #signal messaging app
     pavucontrol #for controlling audio
     traceroute #finding out connection issues
     fastfetch #flex the config
@@ -78,6 +79,12 @@
     linux-manual
     man-pages
     man-pages-posix
+    # tue vpn
+    eduvpn-client #surf vpn provider
+    age #for secret management of kubernetes cluster
+    openssl #for generating certs
+    television #fuzzy finder tui
+    zotero # for reference management
   ];
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "23.11";

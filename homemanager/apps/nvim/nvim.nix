@@ -20,6 +20,7 @@
     pkgs.ripgrep
     pkgs.zls
     pkgs.marksman
+    pkgs.vscode-extensions.vadimcn.vscode-lldb
   ];
 
   programs.neovim = {

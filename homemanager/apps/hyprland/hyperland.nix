@@ -1,6 +1,6 @@
 { config, pkgs, inputs, ... }:
 let
-  menu = "wofi --show run";
+  menu = "tofi-run | xargs hyprctl dispatch exec --";
   terminal = "alacritty";
   lock_script = pkgs.pkgs.writeShellScriptBin "lock_screen" ''
     		${pkgs.brightnessctl}/bin/brightnessctl s 20% &
@@ -65,6 +65,7 @@ in
       exec-once = ${startupScript}/bin/start
       $lock = ${pkgs.hyprlock}/bin/hyprlock -c ~/.config/hyprlock/hyprlock.conf
       $bluetoothToggle = ${bluetoothToggle}/bin/toggleBlue
+      $menu = ${menu}
       env = WLR_NO_HARDWARE_CURSORS,1
       source = ./keybind.conf
     '';

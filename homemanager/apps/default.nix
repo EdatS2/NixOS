@@ -9,5 +9,6 @@
         ./zsh/zsh.nix
         ./alacritty/alacritty.nix
         ./kanshi/kanshi.nix
+        ./tofi/tofi.nix
 		];
 		}
