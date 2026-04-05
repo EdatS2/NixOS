@@ -17,6 +17,8 @@ programs.zsh = {
     tvim = "vim $(tv)";
     text = ''tv text | xargs -oI {} sh -c 'vim "$(echo {} | cut -d ":" -f 1)" +$(echo {} | cut -d ":" -f 2)' '';
     tgit = "cd $(tv git-repos)";
+    docked = "hyprctl keyword monitor DP-1,3440x1440@60,0x0,1 \
+              hyprctl keyword monitor eDP-1,1920x1080@60,3440x0,1";
   };
   history.size = 10000;
   history.path = "${config.xdg.dataHome}/zsh/history";

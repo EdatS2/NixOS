@@ -11,9 +11,8 @@
     pkgs.jdk
     pkgs.python3
     pkgs.nodePackages.bash-language-server
-    pkgs.python311Packages.jedi-language-server
+    # pkgs.python311Packages.jedi-language-server
     pkgs.ltex-ls
-    pkgs.ansible-language-server
     pkgs.lua-language-server
     pkgs.texlab
     pkgs.tree-sitter
@@ -21,6 +20,7 @@
     pkgs.zls
     pkgs.marksman
     pkgs.vscode-extensions.vadimcn.vscode-lldb
+    pkgs.nixfmt
   ];
 
   programs.neovim = {

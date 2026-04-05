@@ -85,6 +85,11 @@
     openssl #for generating certs
     television #fuzzy finder tui
     zotero # for reference management
+    opencode
+    nextcloud-client #for connecting to cloud storage
+    moonlight 
+    jellyfin-web
+    obsidian
   ];
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "23.11";

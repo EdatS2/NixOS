@@ -41,6 +41,7 @@
     vial
     via
   ];
+  services.ddccontrol.enable = true;
   # virtualization
   virtualisation.docker.rootless = {
     enable = true;
@@ -111,9 +112,16 @@
   };
 
   #file explorer
+  programs.ccache = {
+      enable = true;
+      packageNames = [ "esbmc" ];
+      };
+  nix.settings.extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
   programs.zsh.enable = true;
+  programs.command-not-found.enable = false;
   programs.xfconf.enable = true;
-  services.gvfs.enable = true;
+  services.gvfs.enable = false;
+  services.gvfs.package = pkgs.gvfs;
   services.davmail = {
     enable = false;
     url = "https://outlook.office365.com/EWS/Exchange.asmx";
@@ -152,6 +160,32 @@
           ];
         });
       })
+    (self: super: {
+    ccacheWrapper = super.ccacheWrapper.override {
+      extraConfig = ''
+        export CCACHE_COMPRESS=1
+        export CCACHE_DIR="/var/cache/ccache"
+        export CCACHE_UMASK=007
+        export CCACHE_SLOPPINESS=random_seed
+        if [ ! -d "$CCACHE_DIR" ]; then
+          echo "====="
+          echo "Directory '$CCACHE_DIR' does not exist"
+          echo "Please create it with:"
+          echo "  sudo mkdir -m0770 '$CCACHE_DIR'"
+          echo "  sudo chown root:nixbld '$CCACHE_DIR'"
+          echo "====="
+          exit 1
+        fi
+        if [ ! -w "$CCACHE_DIR" ]; then
+          echo "====="
+          echo "Directory '$CCACHE_DIR' is not accessible for user $(whoami)"
+          echo "Please verify its access permissions"
+          echo "====="
+          exit 1
+        fi
+      '';
+    };
+  })
   ];
 
   networking.hostName = "borma"; # Define your hostname.
@@ -205,7 +239,7 @@
   };
 
 
-  programs.nm-applet.enable = true;
+  programs.nm-applet.enable = false;
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -237,11 +271,11 @@
         ];
 
 
-  # services.avahi = {
-  #   enable = true;
-  #   nssmdns4 = true;
-  #   openFirewall = true;
-  # };
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
   #
 
   # Enable sound.
@@ -260,11 +294,21 @@
       };
     };
   };
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+      enable = true;
+      settings = {
+      General = {
+        Privacy = "device";
+        JustWorksRepairing = "always";
+        Class = "0x000100";
+        FastConnectable = "true";
+      };
+      };
+  };
   hardware.bluetooth.powerOnBoot = false;
   services.blueman.enable = true;
   services.hardware.bolt.enable = true;
-  # hardware.xpadneo.enable = true;
+  hardware.xpadneo.enable = true;
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [ intel-media-driver intel-compute-runtime intel-vaapi-driver ];
@@ -276,7 +320,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kusanagi = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "input" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "input" "dialout" "tty" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     hashedPassword = "$6$oLD/A.d6HHi2kKZu$zTzEKSS1aO8Fh9CC2oVYUJvNk97rla7elixI8AWFvXDJqFx3EsGR/S.rQC4ML43Va1AQWgXYCno2VFvCXwcIM0";
     packages = [
@@ -285,6 +329,7 @@
       pkgs.vim
     ];
   };
+  documentation.dev.enable = true;
   documentation.enable = true;
   documentation.man = {
     man-db.enable = false;
@@ -326,7 +371,6 @@
     wlroots
     clang
     ffmpegthumbnailer
-    f3d
     kdePackages.okular
     feh #to view images
     strongswan
@@ -338,7 +382,8 @@
     cacert.unbundled #get unbundled cacerts for strongswan
     #linuxKernel.packages.linux_xanmod.xpadneo
     sbctl #enrolling secureboot keys
-    linuxKernel.packages.linux_6_13.turbostat
+    exfatprogs
+    exfat
   ];
 
   # install hyprland
@@ -356,7 +401,7 @@
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     liberation_ttf
     fira-code
     fira-code-symbols

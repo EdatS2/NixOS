@@ -6,29 +6,29 @@
     "position": "top", // Waybar position (top|bottom|left|right)
     "height": 50, // Waybar height (to be removed for auto height)
     "spacing": 4, // Gaps between modules (4px)
-    "modules-left": ["hyprland/workspaces", "hyprland/submap", "tray"],
+    "modules-left": ["hyprland/workspaces", "hyprland/submap"],
     "modules-center": ["clock#time", "custom/separator", "clock#week", "custom/separator_dot", "clock#month", "custom/separator", "clock#calendar"],
-    "modules-right": [ "cpu", "memory", "battery", "backlight", "pulseaudio","bluetooth", "network", "group/misc", "custom/logout_menu" ],
+    "modules-right": [ "cpu", "memory", "battery", "backlight", "pulseaudio","bluetooth", "network", "custom/nextcloud", "group/misc", "custom/logout_menu" ],
 
     // Modules Config
     "hyprland/workspaces": {
         "on-click": "activate",  
         "format": "{icon}",
         "format-icons": {
-            // "1": "󰲠",
-            // "2": "󰲢",
-            // "3": "󰲤",
-            // "4": "󰲦",
-            // "5": "󰲨",
-            // "6": "󰲪",
-            // "7": "󰲬",
-            // "8": "󰲮",
-            // "9": "󰲰",
-            // "10": "󰿬",
+            "1": "󰲠",
+            "2": "󰲢",
+            "3": "󰲤",
+            "4": "󰲦",
+            "5": "󰲨",
+            "6": "󰲪",
+            "7": "󰲬",
+            "8": "󰲮",
+            "9": "󰲰",
+            "10": "󰿬",
 
-            "active": "",
-            "default": "",
-            "empty": ""
+            // "active": "",
+            // "default": "",
+            // "empty": ""
         },
         "persistent_workspaces": {
             "*": 10,  
@@ -158,7 +158,7 @@
         // "format-linked": "󰈀 {ifname} (No IP)",
         // "tooltip-format-ethernet":"Interface: {ifname}\nIP: {ipaddr}\nGW: {gwaddr}\nNetmask: {netmask}\nCIDR: {cidr}\n\n<span color='#a6da95'>{bandwidthUpBits}</span>\t<span color='#ee99a0'>{bandwidthDownBits}</span>\t<span color='#c6a0f6'>󰹹{bandwidthTotalBits}</span>",
         "max-length": 35,
-        "on-click": "alacritty -e nm-tui",
+        "on-click": "networkmanager_dmenu",
         "on-click-right": "nm-connection-editor",
     },
 
@@ -221,12 +221,12 @@
         "start-activated": true,
     },
 
-    "custom/logout_menu": {
+    "custom/nextcloud": {
+        "exec": "~/.config/waybar/scripts/nextcloud-waybar-wrapper.sh",
         "return-type": "json",
-        "exec": "echo '{ \"text\":\"󰐥\", \"tooltip\": \"logout menu\" }'",
-        "interval": "once",
-        "on-click": "zsh -c wlogout_uniqe",
+        "interval": 5
     },
+
     "cpu": {
         "format": "󰻠  {usage}%",
         "states": {
