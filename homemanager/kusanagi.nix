@@ -30,7 +30,7 @@
     unzip
     thunderbird-latest
     wofi
-    swww
+    awww
     dunst
     brightnessctl
     pamixer
@@ -50,7 +50,6 @@
     pcmanfm
     lxmenu-data
     shared-mime-info
-    via #for configuring keyboard
     sshfs #mounting remote filesystems
     uefitool #for bios editing
     prusa-slicer #3dprinting
@@ -90,6 +89,7 @@
     moonlight 
     jellyfin-web
     obsidian
+    jq
   ];
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "23.11";

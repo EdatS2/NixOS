@@ -169,8 +169,6 @@
             "custom/geo",
             "custom/media",
             "custom/dunst",
-            "custom/night_mode",
-            "custom/airplane_mode",
             "idle_inhibitor",
         ],
     },
@@ -189,19 +187,6 @@
         "return-type": "json",
     },
 
-    "custom/airplane_mode": {
-        "return-type": "json",
-        "interval": 1,
-        "exec": "zsh -c check_airplane_mode",
-        "on-click": "zsh -c airplane_mode_toggle",
-    },
-
-    "custom/night_mode": {
-        "return-type": "json",
-        "interval": 1,
-        "exec": "zsh -c check_night_mode",
-        "on-click": "zsh -c night_mode_toggle",
-    },
     
     "custom/dunst": {
         "return-type": "json",
@@ -224,7 +209,16 @@
     "custom/nextcloud": {
         "exec": "~/.config/waybar/scripts/nextcloud-waybar-wrapper.sh",
         "return-type": "json",
-        "interval": 5
+        "interval": 30,
+        "on-click": "nextcloud"
+    },
+
+
+    "custom/vpn": {
+        "exec": "~/.config/waybar/scripts/vpn-status.sh",
+        "return-type": "json",
+        "interval": 5,
+        "on-click": "~/.config/waybar/scripts/vpn-select.sh"
     },
 
     "cpu": {

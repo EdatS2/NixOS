@@ -36,17 +36,16 @@ let
     fi
   '';
   startupScript = pkgs.pkgs.writeShellScriptBin "start" ''
-    	${pkgs.swww}/bin/swww-daemon &
+    	${pkgs.awww}/bin/awww-daemon &
     	${pkgs.dunst}/bin/dunst &
     	${pkgs.waybar}/bin/waybar &
         ${pkgs.thunderbird}/bin/thunderbird &
         ${pkgs.zapzap}/bin/zapzap &
         ${pkgs.signal-desktop}/bin/signal-desktop &
-        ${pkgs.vorta}/bin/vorta -d &
         ${pkgs.nextcloud-client}/bin/nextcloud &
     	
     	sleep 1
-     	${pkgs.swww}/bin/swww img ${./gits.jpg} &
+     	${pkgs.awww}/bin/awww img ${./gits.jpg} &
     	'';
 in
 {

@@ -2,19 +2,27 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ inputs, config, lib, pkgs, ... }:
+{
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./greetd.nix
-      #      ./theme.nix
-      ./wireguard.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./greetd.nix
+    #      ./theme.nix
+    ./wireguard.nix
+  ];
   # enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   # use the latest hardened kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPatches = [ {
@@ -37,6 +45,12 @@
     pkiBundle = "/etc/secureboot";
   };
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  services.earlyoom = {
+    enable = true;
+    freeMemThreshold = 5;
+    
+
+  };
   services.udev.packages = with pkgs; [
     vial
     via
@@ -48,7 +62,7 @@
     setSocketVariable = true;
   };
   virtualisation.docker.storageDriver = "btrfs";
-  # biometrics 
+  # biometrics
   # services.open-fprintd = {
   #     enable = true;
   #     # tod.enable = true;
@@ -75,15 +89,22 @@
       };
     };
   };
-  nix.buildMachines = [{
+  nix.buildMachines = [
+    {
       hostName = "melchior_build";
       system = "x86_64-linux";
       protocol = "ssh";
       maxJobs = 18;
       speedFactor = 10;
-      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      supportedFeatures = [
+        "nixos-test"
+        "benchmark"
+        "big-parallel"
+        "kvm"
+      ];
       mandatoryFeatures = [ ];
-  }];
+    }
+  ];
   nix.distributedBuilds = false;
   nix.extraOptions = " builders-use-substitutes = true\n";
   #powermanagement
@@ -113,9 +134,9 @@
 
   #file explorer
   programs.ccache = {
-      enable = true;
-      packageNames = [ "esbmc" ];
-      };
+    enable = true;
+    packageNames = [ "esbmc" ];
+  };
   nix.settings.extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
   programs.zsh.enable = true;
   programs.command-not-found.enable = false;
@@ -141,51 +162,49 @@
   services.tailscale.enable = true;
   services.tumbler.enable = true;
   nixpkgs.overlays = [
-    (final: prev:
-      {
-        strongswanNM' = prev.strongswanNM.override {
-          enableNetworkManager = false;
-        };
-      })
-    (final: prev:
-      {
-        strongswan' = prev.strongswanNM'.overrideAttrs (old: {
-          configureFlags = (old.configureFlags or [ ]) ++ [
-            "--enable-eap-peap"
-            "--enable-nm"
-            "--with-nm-ca-dir=${pkgs.cacert.unbundled}/etc/ssl/certs"
-          ];
-          buildInputs = (old.buildInputs or [ ]) ++ [
-            pkgs.cacert.unbundled
-          ];
-        });
-      })
+    (final: prev: {
+      strongswanNM' = prev.strongswanNM.override {
+        enableNetworkManager = false;
+      };
+    })
+    (final: prev: {
+      strongswan' = prev.strongswanNM'.overrideAttrs (old: {
+        configureFlags = (old.configureFlags or [ ]) ++ [
+          "--enable-eap-peap"
+          "--enable-nm"
+          "--with-nm-ca-dir=${pkgs.cacert.unbundled}/etc/ssl/certs"
+        ];
+        buildInputs = (old.buildInputs or [ ]) ++ [
+          pkgs.cacert.unbundled
+        ];
+      });
+    })
     (self: super: {
-    ccacheWrapper = super.ccacheWrapper.override {
-      extraConfig = ''
-        export CCACHE_COMPRESS=1
-        export CCACHE_DIR="/var/cache/ccache"
-        export CCACHE_UMASK=007
-        export CCACHE_SLOPPINESS=random_seed
-        if [ ! -d "$CCACHE_DIR" ]; then
-          echo "====="
-          echo "Directory '$CCACHE_DIR' does not exist"
-          echo "Please create it with:"
-          echo "  sudo mkdir -m0770 '$CCACHE_DIR'"
-          echo "  sudo chown root:nixbld '$CCACHE_DIR'"
-          echo "====="
-          exit 1
-        fi
-        if [ ! -w "$CCACHE_DIR" ]; then
-          echo "====="
-          echo "Directory '$CCACHE_DIR' is not accessible for user $(whoami)"
-          echo "Please verify its access permissions"
-          echo "====="
-          exit 1
-        fi
-      '';
-    };
-  })
+      ccacheWrapper = super.ccacheWrapper.override {
+        extraConfig = ''
+          export CCACHE_COMPRESS=1
+          export CCACHE_DIR="/var/cache/ccache"
+          export CCACHE_UMASK=007
+          export CCACHE_SLOPPINESS=random_seed
+          if [ ! -d "$CCACHE_DIR" ]; then
+            echo "====="
+            echo "Directory '$CCACHE_DIR' does not exist"
+            echo "Please create it with:"
+            echo "  sudo mkdir -m0770 '$CCACHE_DIR'"
+            echo "  sudo chown root:nixbld '$CCACHE_DIR'"
+            echo "====="
+            exit 1
+          fi
+          if [ ! -w "$CCACHE_DIR" ]; then
+            echo "====="
+            echo "Directory '$CCACHE_DIR' is not accessible for user $(whoami)"
+            echo "Please verify its access permissions"
+            echo "====="
+            exit 1
+          fi
+        '';
+      };
+    })
   ];
 
   networking.hostName = "borma"; # Define your hostname.
@@ -207,7 +226,10 @@
         version = 2;
         remote_addrs = [ "vpn-student.tue.nl" ];
         encap = true;
-        vips = [ "0.0.0.0" "::" ];
+        vips = [
+          "0.0.0.0"
+          "::"
+        ];
         local_port = 500;
         remote."remote-1" = {
           auth = "pubkey";
@@ -218,7 +240,10 @@
           eap_id = "t.salverda@student.tue.nl";
         };
         children."TUE_connection" = {
-          remote_ts = [ "0.0.0.0/0" "::/0" ];
+          remote_ts = [
+            "0.0.0.0/0"
+            "::/0"
+          ];
         };
       };
     };
@@ -237,7 +262,6 @@
       	  }
     '';
   };
-
 
   programs.nm-applet.enable = false;
 
@@ -265,11 +289,10 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [
-        brlaser
-        brgenml1lpr
-        brgenml1cupswrapper
-        ];
-
+    brlaser
+    brgenml1lpr
+    brgenml1cupswrapper
+  ];
 
   services.avahi = {
     enable = true;
@@ -289,21 +312,29 @@
         "bluez5.enable-sbc-xq" = true;
         "bluez5.enable-msbc" = true;
         "bluez5.enable-hw-volume" = true;
-        "bluez5.roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" "a2dp_sink" "a2dp_source" ];
+        "bluez5.roles" = [
+          "hsp_hs"
+          "hsp_ag"
+          "hfp_hf"
+          "hfp_ag"
+          "a2dp_sink"
+          "a2dp_source"
+        ];
         # "bluez5.codecs" = [ "aptx" "aptx_hd" "aptx_ll" "aptx_ll_duplex" ];
       };
     };
   };
+  hardware.keyboard.qmk.enable = true;
   hardware.bluetooth = {
-      enable = true;
-      settings = {
+    enable = true;
+    settings = {
       General = {
         Privacy = "device";
         JustWorksRepairing = "always";
         Class = "0x000100";
         FastConnectable = "true";
       };
-      };
+    };
   };
   hardware.bluetooth.powerOnBoot = false;
   services.blueman.enable = true;
@@ -311,7 +342,12 @@
   hardware.xpadneo.enable = true;
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [ intel-media-driver intel-compute-runtime intel-vaapi-driver ];
+    extraPackages = with pkgs; [
+      intel-media-driver
+      intel-vaapi-driver
+      mesa.opencl
+      intel-compute-runtime-legacy1
+    ];
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -320,7 +356,14 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.kusanagi = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "input" "dialout" "tty" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "input"
+      "dialout"
+      "tty"
+      "video"
+    ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     hashedPassword = "$6$oLD/A.d6HHi2kKZu$zTzEKSS1aO8Fh9CC2oVYUJvNk97rla7elixI8AWFvXDJqFx3EsGR/S.rQC4ML43Va1AQWgXYCno2VFvCXwcIM0";
     packages = [
@@ -372,18 +415,19 @@
     clang
     ffmpegthumbnailer
     kdePackages.okular
-    feh #to view images
+    feh # to view images
     strongswan
     gnutls
     curl
-    cifs-utils #smb mount
+    cifs-utils # smb mount
     powertop
     strongswanNM
-    cacert.unbundled #get unbundled cacerts for strongswan
+    cacert.unbundled # get unbundled cacerts for strongswan
     #linuxKernel.packages.linux_xanmod.xpadneo
-    sbctl #enrolling secureboot keys
+    sbctl # enrolling secureboot keys
     exfatprogs
     exfat
+    via
   ];
 
   # install hyprland
@@ -457,4 +501,3 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
 }
-

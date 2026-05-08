@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Path to your Nextcloud log (based on your previous find output)
 LOG_FILE="/home/kusanagi/Nextcloud/.nextcloudsync.log"

@@ -181,22 +181,6 @@ window.top_bar .modules-center {
   color: @subtext0;
 }
 
-#custom-airplane_mode {
-  margin-right: 2;
-}
-
-#custom-airplane_mode.off {
-  color: @subtext0;
-}
-
-#custom-night_mode {
-  margin-right: 2;
-}
-
-#custom-night_mode.off {
-  color: @subtext0;
-}
-
 #custom-dunst {
   margin-right: 2;
 }
@@ -464,6 +448,21 @@ window.left_bar .modules-center {
   color: @peach;
 }
 
-#custom-nextcloud.error {
-  color: @red;
+#custom-vpn {
+  background-color: alpha(@surface1, 0.7);
+  border-radius: 10;
+  padding-left: 10;
+  padding-right: 10;
+  margin-left: 2;
+  margin-right: 2;
+  margin-top: 5;
+  margin-bottom: 5;
+}
+
+#custom-vpn.connected {
+  color: @green;
+}
+
+#custom-vpn.disconnected {
+  color: @subtext0;
 }
