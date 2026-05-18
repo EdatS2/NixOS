@@ -64,6 +64,21 @@
             }
           ];
         };
+        saito = nixpkgs.lib.nixosSystem {
+          specialArgs = {inherit inputs;};
+          modules = [
+            ./werk/configuration.nix
+            home-manager.nixosModules.home-manager
+            lanzaboote.nixosModules.lanzaboote
+            nix-index-database.nixosModules.nix-index
+            {
+              home-manager.extraSpecialArgs = nixpkgs.lib.mkMerge [
+                inputs
+              ];
+              home-manager.users.kusanagi = import ./homemanager/kusanagi.nix;
+            }
+          ];
+        };
       };
     };
 }
