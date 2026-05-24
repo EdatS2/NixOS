@@ -50,6 +50,7 @@
       pkgs.marksman
       pkgs.vscode-extensions.vadimcn.vscode-lldb
       pkgs.nixfmt
+      pkgs.typescript-language-server
     ];
 
     # Using normal neovim config to allow reuse on other systems.

@@ -10,5 +10,6 @@
         ./alacritty/alacritty.nix
         ./kanshi/kanshi.nix
         ./tofi/tofi.nix
+        ./vscode/vscode.nix
 		];
 		}

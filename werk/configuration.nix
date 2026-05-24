@@ -52,10 +52,12 @@
   };
   services.ddccontrol.enable = true;
   # virtualization
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
+  virtualisation.docker.enable = true;
+  virtualisation.docker.listenOptions = [ "/run/user/1001/docker.sock" ];
+  # virtualisation.docker.rootless = {
+  #   enable = true;
+  #   setSocketVariable = true;
+  # };
   virtualisation.docker.storageDriver = "btrfs";
   # biometrics
   # services.open-fprintd = {
@@ -168,12 +170,6 @@
   };
 
   programs.nm-applet.enable = false;
-  programs.vscode = {
-      enable = true;
-      extensions = with pkgs.vscode-extensions; [
-        vscodevim.vim
-      ];
-  };
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -235,6 +231,24 @@
     };
   };
   hardware.keyboard.qmk.enable = true;
+  services.xserver.videoDrivers = [
+    "modesetting"
+    "nvidia"
+    ];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.finegrained = true;
+    open = true;
+    prime = {
+        offload = {
+            enable = true;
+            enableOffloadCmd = true;
+        };
+        intelBusId = "PCI:0@0:2:0";
+        nvidiaBusId = "PCI:1@0:0:0";
+    };
+  };
+  hardware.nvidia-container-toolkit.enable = true;
   hardware.bluetooth = {
     enable = true;
     settings = {
@@ -273,6 +287,7 @@
       "dialout"
       "tty"
       "video"
+      "docker"
     ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     hashedPassword = "$6$oLD/A.d6HHi2kKZu$zTzEKSS1aO8Fh9CC2oVYUJvNk97rla7elixI8AWFvXDJqFx3EsGR/S.rQC4ML43Va1AQWgXYCno2VFvCXwcIM0";
@@ -280,6 +295,7 @@
       pkgs.firefox
       pkgs.tree
       pkgs.vim
+      pkgs.azure-cli
     ];
   };
   documentation.dev.enable = true;
