@@ -8,6 +8,7 @@ programs.zsh = {
   enableCompletion = true;
   autosuggestion.enable = true;
   syntaxHighlighting.enable = true;
+  dotDir = "${config.xdg.configHome}/zsh";
 
   shellAliases = {
     ll = "ls -l";

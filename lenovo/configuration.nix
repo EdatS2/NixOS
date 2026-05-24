@@ -48,8 +48,6 @@
   services.earlyoom = {
     enable = true;
     freeMemThreshold = 5;
-    
-
   };
   services.udev.packages = with pkgs; [
     vial
@@ -363,6 +361,7 @@
       "dialout"
       "tty"
       "video"
+      "i2c"
     ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     hashedPassword = "$6$oLD/A.d6HHi2kKZu$zTzEKSS1aO8Fh9CC2oVYUJvNk97rla7elixI8AWFvXDJqFx3EsGR/S.rQC4ML43Va1AQWgXYCno2VFvCXwcIM0";
