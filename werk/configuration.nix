@@ -270,7 +270,8 @@
       intel-media-driver
       intel-vaapi-driver
       mesa.opencl
-      intel-compute-runtime-legacy1
+      vpl-gpu-rt
+      intel-compute-runtime
     ];
   };
 

@@ -29,6 +29,14 @@
       undotree
       vim-tmux-navigator
       luasnip
+      nvim-treesitter
+      vim-fugitive
+      nvim-cmp
+      lazy-nvim
+      which-key-nvim
+      comment-nvim
+      vimtex
+      nvim-lspconfig
     ];
     extraPackages = with pkgs; [
       pkgs.nixpkgs-fmt
@@ -51,6 +59,7 @@
       pkgs.vscode-extensions.vadimcn.vscode-lldb
       pkgs.nixfmt
       pkgs.typescript-language-server
+      pkgs.pyright
     ];
 
     # Using normal neovim config to allow reuse on other systems.
