@@ -15,6 +15,7 @@
     # Include the results of the hardware scan.
     ./saito-hardware.nix
     ./greetd.nix
+    ./vfio.nix
     #      ./theme.nix
   ];
   # enable flakes
@@ -45,11 +46,20 @@
     pkiBundle = "/etc/secureboot";
   };
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  services.fwupd.enable = true;
   services.earlyoom = {
     enable = true;
     freeMemThreshold = 5;
-
   };
+  services.ollama = {
+    enable = false;
+    package = pkgs.ollama-vulkan;
+    environmentVariables = {
+      # CUDA_VISIBLE_DEVICES = "-1";
+      GGML_VK_VISIBLE_DEVICES = "0";
+    };
+  };
+  services.intune.enable = true;
   services.ddccontrol.enable = true;
   # virtualization
   virtualisation.docker.enable = true;
@@ -226,7 +236,12 @@
           "a2dp_sink"
           "a2dp_source"
         ];
-        # "bluez5.codecs" = [ "aptx" "aptx_hd" "aptx_ll" "aptx_ll_duplex" ];
+        "bluez5.codecs" = [
+          "aptx"
+          "aptx_hd"
+          "aptx_ll"
+          "aptx_ll_duplex"
+        ];
       };
     };
   };
@@ -234,18 +249,18 @@
   services.xserver.videoDrivers = [
     "modesetting"
     "nvidia"
-    ];
+  ];
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.finegrained = true;
     open = true;
     prime = {
-        offload = {
-            enable = true;
-            enableOffloadCmd = true;
-        };
-        intelBusId = "PCI:0@0:2:0";
-        nvidiaBusId = "PCI:1@0:0:0";
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      intelBusId = "PCI:0@0:2:0";
+      nvidiaBusId = "PCI:1@0:0:0";
     };
   };
   hardware.nvidia-container-toolkit.enable = true;
@@ -289,6 +304,7 @@
       "tty"
       "video"
       "docker"
+      "libvirtd"
     ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
     hashedPassword = "$6$oLD/A.d6HHi2kKZu$zTzEKSS1aO8Fh9CC2oVYUJvNk97rla7elixI8AWFvXDJqFx3EsGR/S.rQC4ML43Va1AQWgXYCno2VFvCXwcIM0";
@@ -355,6 +371,11 @@
     exfatprogs
     exfat
     via
+    mermaid-cli
+    # winepackages
+    # wineWow64Packages.waylandFull
+    winePackages.stableFull
+    winetricks
   ];
 
   # install hyprland

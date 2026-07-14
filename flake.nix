@@ -9,8 +9,8 @@
     # hyprland.url = "github:hyprwm/Hyprland";
     # old_pkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     # nixos-06cb-009a-fingerprint-sensor = {
-      # url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
-      # inputs.nixpkgs.follows = "old_pkgs";
+    # url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor";
+    # inputs.nixpkgs.follows = "old_pkgs";
     # };
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -18,16 +18,20 @@
       url = "github:nix-community/lanzaboote/v0.4.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-vfio.url = "github:j-brn/nixos-vfio";
+    nixos-vfio.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
-    inputs@{ self
-    , nixpkgs
-    , home-manager
-#    , hyprland
-#    , nixos-06cb-009a-fingerprint-sensor
-#    , old_pkgs
-    , lanzaboote
-    , nix-index-database
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      #    , hyprland
+      #    , nixos-06cb-009a-fingerprint-sensor
+      #    , old_pkgs
+      lanzaboote,
+      nixos-vfio,
+      nix-index-database,
     }:
     {
       nixosConfigurations = {
@@ -47,7 +51,7 @@
           ];
         };
         borma = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
+          specialArgs = { inherit inputs; };
           modules = [
             ./lenovo/configuration.nix
             ./smb/smb.nix
@@ -65,7 +69,7 @@
           ];
         };
         saito = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
+          specialArgs = { inherit inputs; };
           modules = [
             ./werk/configuration.nix
             home-manager.nixosModules.home-manager

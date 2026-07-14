@@ -37,6 +37,16 @@
       comment-nvim
       vimtex
       nvim-lspconfig
+      nvim-treesitter-parsers.mermaid
+      (pkgs.vimUtils.buildVimPlugin {
+        name = "devcontainers-nvim";
+        src = pkgs.fetchFromGitHub {
+          owner = "jedrzejboczar";
+          repo = "devcontainers.nvim";
+          rev = "d8910dbf668b9db7dc21c9ef5c1aea800de804df";
+          sha256 = "0qwknjgc0a2i7wbawy4vhfvva4hqcgfl9vjb0454jqr9dwn3sb92";
+        };
+      })
     ];
     extraPackages = with pkgs; [
       pkgs.nixpkgs-fmt
@@ -60,6 +70,7 @@
       pkgs.nixfmt
       pkgs.typescript-language-server
       pkgs.pyright
+      pkgs.devcontainer
     ];
 
     # Using normal neovim config to allow reuse on other systems.
