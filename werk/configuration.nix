@@ -46,6 +46,7 @@
     pkiBundle = "/etc/secureboot";
   };
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  services.tailscale.enable = true;
   services.fwupd.enable = true;
   services.earlyoom = {
     enable = true;
@@ -60,6 +61,9 @@
     };
   };
   services.intune.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.login.enableGnomeKeyring = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
   services.ddccontrol.enable = true;
   # virtualization
   virtualisation.docker.enable = true;
@@ -124,23 +128,6 @@
   services.gvfs.package = pkgs.gvfs;
   services.tumbler.enable = true;
   nixpkgs.overlays = [
-    (final: prev: {
-      strongswanNM' = prev.strongswanNM.override {
-        enableNetworkManager = false;
-      };
-    })
-    (final: prev: {
-      strongswan' = prev.strongswanNM'.overrideAttrs (old: {
-        configureFlags = (old.configureFlags or [ ]) ++ [
-          "--enable-eap-peap"
-          "--enable-nm"
-          "--with-nm-ca-dir=${pkgs.cacert.unbundled}/etc/ssl/certs"
-        ];
-        buildInputs = (old.buildInputs or [ ]) ++ [
-          pkgs.cacert.unbundled
-        ];
-      });
-    })
     (self: super: {
       ccacheWrapper = super.ccacheWrapper.override {
         extraConfig = ''
@@ -167,6 +154,33 @@
         '';
       };
     })
+    (final: prev: {
+      microsoft-identity-broker = prev.microsoft-identity-broker.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.makeWrapper ];
+        buildInputs = (old.buildInputs or [ ]) ++ [
+          prev.gst_all_1.gstreamer
+          prev.gst_all_1.gst-plugins-base
+          prev.gst_all_1.gst-plugins-good
+        ];
+
+        postInstall = (old.postInstall or "") + ''
+          wrapProgram $out/bin/microsoft-identity-broker \
+            --set GIO_EXTRA_MODULES \
+            ${prev.glib-networking}/lib/gio/modules
+        '';
+      });
+    })
+    (final: prev: {
+      intune-portal = prev.intune-portal.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.makeWrapper ];
+
+        postFixup = (old.postFixup or "") + ''
+          wrapProgram $out/bin/intune-portal \
+            --set GIO_EXTRA_MODULES \
+            ${prev.glib-networking}/lib/gio/modules
+        '';
+      });
+    })
   ];
 
   networking.hostName = "saito"; # Define your hostname.
@@ -176,7 +190,18 @@
     enable = true; # Easiest to use and most distros use this by default.
     plugins = [
       pkgs.networkmanager_strongswan
+      pkgs.networkmanager-l2tp
     ];
+  };
+  services.strongswan = {
+    enable = true;
+    secrets = [
+      "ipsec.d/ipsec.nm-l2tp.secrets"
+    ];
+  };
+  #weird fix
+  environment.etc."strongswan.conf" = {
+    text = "";
   };
 
   programs.nm-applet.enable = false;
@@ -373,9 +398,9 @@
     via
     mermaid-cli
     # winepackages
-    # wineWow64Packages.waylandFull
-    winePackages.stableFull
+    wineWow64Packages.waylandFull
     winetricks
+    networkmanager-l2tp
   ];
 
   # install hyprland

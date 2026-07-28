@@ -38,8 +38,17 @@
       vimtex
       nvim-lspconfig
       nvim-treesitter-parsers.mermaid
+      nvim-treesitter-parsers.cpp
+      nvim-treesitter-parsers.cuda
       (pkgs.vimUtils.buildVimPlugin {
         name = "devcontainers-nvim";
+        nvimSkipModules = [
+          "devcontainers.cache"
+          "devcontainers.lsp.rpc"
+          "devcontainers.lsp.types.meta_model"
+          "devcontainers.manager"
+          "devcontainers.paths"
+        ];
         src = pkgs.fetchFromGitHub {
           owner = "jedrzejboczar";
           repo = "devcontainers.nvim";
@@ -47,6 +56,7 @@
           sha256 = "0qwknjgc0a2i7wbawy4vhfvva4hqcgfl9vjb0454jqr9dwn3sb92";
         };
       })
+      netman-nvim
     ];
     extraPackages = with pkgs; [
       pkgs.nixpkgs-fmt

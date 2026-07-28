@@ -1,4 +1,10 @@
-{ inputs, pkgs, hyprland, config, ... }:
+{
+  inputs,
+  pkgs,
+  hyprland,
+  config,
+  ...
+}:
 {
   imports = [
     ./apps
@@ -50,47 +56,48 @@
     pcmanfm
     lxmenu-data
     shared-mime-info
-    sshfs #mounting remote filesystems
-    uefitool #for bios editing
-    prusa-slicer #3dprinting
-    hyprshot #screenshots
-    inkscape-with-extensions #to create eps images for reports
-    darktable #for editing raws
-    gimp #editing png
-    nufraw-thumbnailer #preview raw files
-    poppler_gi #pdf thumbnails
-    libgsf #docs odf thumbnails
-    geekbench_6 #benchmark
-    zapzap #whatsapp
-    signal-desktop #signal messaging app
-    pavucontrol #for controlling audio
-    traceroute #finding out connection issues
-    fastfetch #flex the config
-    inxi #for checking battery life
-    pomodoro-gtk #title says all
-    borgbackup #for backup
-    vorta #frontend for borg
-    remmina #for remote desktop
-    ghostty #terminal emulaturo
-    android-file-transfer #transfering files from phone and garmin
+    sshfs # mounting remote filesystems
+    uefitool # for bios editing
+    prusa-slicer # 3dprinting
+    hyprshot # screenshots
+    inkscape-with-extensions # to create eps images for reports
+    darktable # for editing raws
+    gimp # editing png
+    nufraw-thumbnailer # preview raw files
+    poppler_gi # pdf thumbnails
+    libgsf # docs odf thumbnails
+    geekbench_6 # benchmark
+    zapzap # whatsapp
+    signal-desktop # signal messaging app
+    pavucontrol # for controlling audio
+    traceroute # finding out connection issues
+    fastfetch # flex the config
+    inxi # for checking battery life
+    pomodoro-gtk # title says all
+    borgbackup # for backup
+    vorta # frontend for borg
+    remmina # for remote desktop
+    ghostty # terminal emulaturo
+    android-file-transfer # transfering files from phone and garmin
     # for ez documentation access
     clang-manpages
     linux-manual
     man-pages
     man-pages-posix
     # tue vpn
-    eduvpn-client #surf vpn provider
-    age #for secret management of kubernetes cluster
-    openssl #for generating certs
-    television #fuzzy finder tui
+    eduvpn-client # surf vpn provider
+    age # for secret management of kubernetes cluster
+    openssl # for generating certs
+    television # fuzzy finder tui
     zotero # for reference management
     opencode
-    nextcloud-client #for connecting to cloud storage
-    moonlight 
+    nextcloud-client # for connecting to cloud storage
+    moonlight
     jellyfin-web
     obsidian
     jq
     fd
+    devcontainer
   ];
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "23.11";
