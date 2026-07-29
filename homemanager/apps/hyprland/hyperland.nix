@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   menu = "tofi-run | xargs hyprctl dispatch exec --";
   terminal = "alacritty";
@@ -24,7 +29,7 @@ let
     # Get the current Bluetooth status
     sleep 5
     bluetooth_status=$(rfkill | awk '$1 == 1 && $2 == "bluetooth" {print $4}')
-    
+
     if [ "$bluetooth_status" == "blocked" ]; then
         # If Bluetooth is active, turn it off
         bluetoothctl power off
@@ -53,10 +58,16 @@ in
     hyprland-workspaces
     xdg-desktop-portal-hyprland
   ];
-   # nix.settings = {
-   #   substituters = ["https://hyprland.cachix.org"];
-   #   trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
-   # };
+  # nix.settings = {
+  #   substituters = ["https://hyprland.cachix.org"];
+  #   trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  # };
+  services.hyprsunset = {
+    enable = true;
+    settings = {
+      temperature = 3000;
+    };
+  };
   wayland.windowManager.hyprland = {
     #    package= inputs.hyprland.packages.${pkgs.system}.hyprland;
     # package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;

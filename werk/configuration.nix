@@ -62,6 +62,7 @@
   };
   services.intune.enable = true;
   services.gnome.gnome-keyring.enable = true;
+  services.gnome.gcr-ssh-agent.enable = false;
   security.pam.services.login.enableGnomeKeyring = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
   services.ddccontrol.enable = true;
@@ -432,14 +433,17 @@
   programs.nix-ld.enable = true;
   programs.mtr.enable = true;
   programs.gnupg.agent = {
-    enable = true;
+    enable = false;
     enableSSHSupport = true;
   };
 
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  programs.ssh.startAgent = true;
+  services.openssh = {
+    enable = true;
+  };
   services.btrfs.autoScrub.enable = true;
   services.btrfs.autoScrub.interval = "weekly";
   services.btrfs.autoScrub.fileSystems = [ "/" ];
