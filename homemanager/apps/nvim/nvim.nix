@@ -37,9 +37,13 @@
       comment-nvim
       vimtex
       nvim-lspconfig
+      copilot-vim
       nvim-treesitter-parsers.mermaid
       nvim-treesitter-parsers.cpp
       nvim-treesitter-parsers.cuda
+      lualine-nvim
+      nvim-web-devicons
+      lualine-lsp-progress
       (pkgs.vimUtils.buildVimPlugin {
         name = "devcontainers-nvim";
         nvimSkipModules = [
