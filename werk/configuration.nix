@@ -60,6 +60,26 @@
       GGML_VK_VISIBLE_DEVICES = "0";
     };
   };
+  services.llama-cpp = {
+    enable = true;
+    package = pkgs.llama-cpp-sycl;
+    settings.port = 8083;
+    settings.models-preset = (pkgs.formats.ini { }).generate "models-preset.ini" {
+      "DeepSeek-V4-Pro" = {
+        hf-repo = "Jackrong/DeepSeek-V4-Pro-Qwen3.5-9B-MTP-GGUF";
+        hf-file = "DeepSeek-V4-Pro-Qwen3.5-9B-MTP-Q4_K_M.gguf";
+        alias = "Jackrong/DeepSeek-V4-Pro";
+        temp = "0.7";
+        top-p = "0.95";
+        top-k = "40";
+        ctx-size = "32768";
+        n-gpu-layers = "-1";
+        spec-type = "draft-mtp";
+        main-gpu = "0";
+        lv = "4";
+      };
+    };
+  };
   services.intune.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.gnome.gcr-ssh-agent.enable = false;
@@ -129,6 +149,7 @@
   services.gvfs.package = pkgs.gvfs;
   services.tumbler.enable = true;
   nixpkgs.overlays = [
+    (import ./llama-cpp-sycl.nix)
     (self: super: {
       ccacheWrapper = super.ccacheWrapper.override {
         extraConfig = ''
@@ -181,6 +202,25 @@
             ${prev.glib-networking}/lib/gio/modules
         '';
       });
+    })
+    (final: prev: {
+      # azure-cli >= 2.86 needs azure-storage-blob >= 12.29 (delegated_user_tid)
+      # https://github.com/NixOS/nixpkgs/issues/543923
+      # pythonPackagesExtensions is composed into every python package set
+      # (incl. the one azure-cli rebuilds), before its own packageOverrides,
+      # so this bump survives azure-cli's chained `python3.override`.
+      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+        (pyFinal: pyPrev: {
+          azure-storage-blob = pyPrev.azure-storage-blob.overridePythonAttrs (old: rec {
+            version = "12.29.0";
+            src = prev.fetchPypi {
+              pname = "azure_storage_blob";
+              inherit version;
+              hash = "sha256-KCTd1+vJBWA068drF5caOOmqWDWrsNVluXAEk/Kmxlc=";
+            };
+          });
+        })
+      ];
     })
   ];
 
@@ -272,6 +312,10 @@
     };
   };
   hardware.keyboard.qmk.enable = true;
+  services.udev.packages = with pkgs; [
+    via
+    qmk-udev-rules
+  ];
   services.xserver.videoDrivers = [
     "modesetting"
     "nvidia"
@@ -397,6 +441,7 @@
     exfatprogs
     exfat
     via
+    qmk
     mermaid-cli
     # winepackages
     wineWow64Packages.waylandFull

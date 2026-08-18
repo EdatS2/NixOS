@@ -63,7 +63,7 @@
     inkscape-with-extensions # to create eps images for reports
     darktable # for editing raws
     gimp # editing png
-    nufraw-thumbnailer # preview raw files
+    # nufraw-thumbnailer # preview raw files
     poppler_gi # pdf thumbnails
     libgsf # docs odf thumbnails
     geekbench_6 # benchmark
